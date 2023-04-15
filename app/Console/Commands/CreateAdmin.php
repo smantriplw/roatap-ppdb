@@ -49,7 +49,7 @@ class CreateAdmin extends Command
                 $user->update([
                     'password' => Hash::make($password),
                     'email' => $email,
-                    'status' => 1,
+                    'status' => 2,
                 ]);
                 $this->info('Done overwrite');
                 $this->info('Password: ' . $password);
@@ -60,7 +60,7 @@ class CreateAdmin extends Command
 
             $user->email = $email;
             $user->password = Hash::make($password);
-            $user->status = 1;
+            $user->status = 2;
             $user->username = $this->argument('username');
 
             $user->save();
