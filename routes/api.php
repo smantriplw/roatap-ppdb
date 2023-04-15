@@ -1,8 +1,10 @@
 <?php
 
-use App\Http\Controllers\Api\LoginController;
-use App\Http\Controllers\Api\ProfileController;
-use Illuminate\Http\Request;
+use App\Http\Controllers\Api\Auth\LoginController;
+use App\Http\Controllers\Api\Auth\ProfileController;
+use App\Http\Controllers\Api\Auth\RegisterController;
+use App\Http\Middleware\JwtLogged;
+use App\Http\Middleware\OnlyActiveUser;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,6 +22,12 @@ Route::group([
     'middleware' => 'api',
     'prefix' => 'auth'
 ], function() {
+    Route::post('register', [RegisterController::class, 'register'])->middleware([
+        JwtLogged::class,
+        OnlyActiveUser::class,
+    ]);
     Route::post('login', [LoginController::class, 'login'])->middleware('guest');
-    Route::get('profile', [ProfileController::class, 'self']);
+    Route::get('profile', [ProfileController::class, 'self'])->middleware([
+        JwtLogged::class,
+    ]);
 });
