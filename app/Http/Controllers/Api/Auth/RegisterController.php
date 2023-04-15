@@ -11,9 +11,9 @@ class RegisterController extends ApiController
 {
     public function rules(): array {
         return [
-            'username' => 'required|min:4|max:20',
+            'username' => 'required_without:email|min:4|max:20',
             'password' => 'required|min:7|max:30',
-            'email' => 'required|unique|max:255',
+            'email' => 'required_without:username|unique|max:255',
         ];
     }
 
@@ -21,9 +21,9 @@ class RegisterController extends ApiController
     {
         $this->validate_request($request);
 
-        $creds = $request->all();
+        $creds = $request->collect();
 
-        $user = User::where('email', $creds['email'])->orWhere('username', strtolower($creds['username']));
+        $user = User::where('email', $creds->get('email'))->orWhere('username', strtolower($creds->get('username')));
         if ($user->exists()) {
             return response()->json([
                 'errors' => [
@@ -33,10 +33,10 @@ class RegisterController extends ApiController
         }
 
         $user = new User();
-        $user->username = strtolower($creds['username']);
+        $user->username = strtolower($creds->get('username'));
         $user->email = $creds['email'];
         $user->status = 1;
-        $user->password = Hash::make($creds['password']);
+        $user->password = Hash::make($creds->get('password'));
 
         if ($user->save()) {
             return response()->json([

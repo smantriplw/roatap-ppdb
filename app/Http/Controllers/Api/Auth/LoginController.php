@@ -14,8 +14,10 @@ class LoginController extends ApiController
     {
         $this->validate_request($request);
 
-        $creds = $request->all();
-        $user = User::where('username', '=', $creds['username']);
+        $creds = $request->collect();
+        $user = User::where('email', $creds->get('email'))->orWhere(
+            'username', strtolower($creds->get('username'))
+        );
         if (!$user->exists()) {
             return response()->json([
                 'errors' => ['_' => 'user doesn\'t exist'],
@@ -36,8 +38,9 @@ class LoginController extends ApiController
     public function rules(): array
     {
         return [
-            'username' => 'required',
-            'password' => 'required|min:7'
+            'username' => 'required_without:email',
+            'password' => 'required|min:7',
+            'email' => 'required_without:username'
         ];
     }
 
