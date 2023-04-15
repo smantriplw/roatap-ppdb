@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\ApiController;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -45,7 +46,7 @@ class LoginController extends ApiController
         return response()->json([
             'data' => [
                 'token' => $token,
-                'expires' => auth()->factory()->getTTL() * 60,
+                'expires_at' => Carbon::now(config('app.timezone'))->timestamp + auth()->factory()->getTTL() * 60,
             ],
         ]);
     }
