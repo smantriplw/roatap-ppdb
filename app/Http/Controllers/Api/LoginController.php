@@ -25,8 +25,8 @@ class LoginController extends ApiController
                 'errors' => ['_' => 'user doesn\'t exist'],
             ], 401);
         }
+        $user = $user->first();
 
-        $user = $user->get();
         if (!Hash::check($creds['password'], $user->password)) {
             return response()->json([
                 'errors' => ['_' => 'Unauthorized'],
