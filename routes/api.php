@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Api\LoginController;
+use App\Http\Controllers\Api\ProfileController;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,5 +20,6 @@ Route::group([
     'middleware' => 'api',
     'prefix' => 'auth'
 ], function() {
-    Route::post('login', [LoginController::class, 'login']);
+    Route::post('login', [LoginController::class, 'login'])->middleware('guest');
+    Route::get('profile', [ProfileController::class, 'self']);
 });
