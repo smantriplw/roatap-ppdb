@@ -9,11 +9,6 @@ use Illuminate\Support\Facades\Hash;
 
 class LoginController extends ApiController
 {
-    public function __construct()
-    {
-        $this->middleware('auth:api', ['except' => ['login']]);
-    }
-
     public function login(Request $request)
     {
         $this->validate_request($request);
