@@ -1,12 +1,12 @@
 <?php
 
 use App\Http\Controllers\Api\Auth\LoginController;
+use App\Http\Controllers\Api\Auth\LogoutController;
 use App\Http\Controllers\Api\Auth\ProfileController;
 use App\Http\Controllers\Api\Auth\RegisterController;
 use App\Http\Controllers\Api\Users\DeleteUserController;
 use App\Http\Controllers\Api\Users\ShowUserController;
 use App\Http\Middleware\JwtLogged;
-use App\Http\Middleware\OnlyActiveUser;
 use App\Http\Middleware\OnlyFAUser;
 use Illuminate\Support\Facades\Route;
 
@@ -31,7 +31,13 @@ Route::group([
         OnlyFAUser::class,
     ]);
     Route::post('login', [LoginController::class, 'login'])->middleware('guest');
+    Route::get('logout', [LogoutController::class, 'logout'])->middleware([
+        JwtLogged:: class,
+    ]);
     Route::get('profile', [ProfileController::class, 'self'])->middleware([
+        JwtLogged::class,
+    ]);
+    Route::post('refresh', [ProfileController::class, 'refresh'])->middleware([
         JwtLogged::class,
     ]);
 });
