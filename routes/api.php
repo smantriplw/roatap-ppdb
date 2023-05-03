@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\Archives\AddArchiveController;
 use App\Http\Controllers\Api\Auth\LoginController;
 use App\Http\Controllers\Api\Auth\LogoutController;
 use App\Http\Controllers\Api\Auth\ProfileController;
@@ -52,6 +53,16 @@ Route::group([
         OnlyFAUser::class,
     ]);
     Route::get('{id}', [ShowUserController::class, 'show'])->middleware([
+        JwtLogged::class,
+    ]);
+});
+
+// /api/archives
+Route::group([
+    'middleware' => 'api',
+    'prefix' => 'archives',
+], function() {
+    Route::post('/', [AddArchiveController::class, 'store'])->middleware([
         JwtLogged::class,
     ]);
 });

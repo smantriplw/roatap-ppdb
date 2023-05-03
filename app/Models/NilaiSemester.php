@@ -19,7 +19,7 @@ class NilaiSemester extends Model
         's5',
     ];
 
-    public function berkas(): BelongsTo {
+    public function archive(): BelongsTo {
         return $this->belongsTo(Archive::class, 'id', 'archive_id');
     }
 }
