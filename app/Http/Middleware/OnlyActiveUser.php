@@ -17,7 +17,7 @@ class OnlyActiveUser
     {
         $user = $request->user();
 
-        if (isset($user) && $user->status === 1) {
+        if (isset($user) && $user->status > 0) {
             return $next($request);
         } else {
             return response()->json([

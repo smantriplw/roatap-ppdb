@@ -3,12 +3,11 @@
 namespace App\Http\Requests;
 
 use App\Enums\ArchiveTypes;
-use App\Enums\LessonTypes;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rules\Enum;
 use Illuminate\Validation\Rules\File;
 
-class AddArchiveRequest extends FormRequest
+class EditArchiveRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,17 +26,15 @@ class AddArchiveRequest extends FormRequest
     {
         return [
             'nik' => 'required|numeric|regex:/^[0-9]{16}$/',
-            'nisn' => 'required|numeric|regex:/^[0-9]{10}$/',
             'name' => 'required|min:3',
             'mother_name' => 'required|min:3',
             'father_name' => 'required|min:3',
-            'birthday'    => 'required|date',
             'school'      => 'required',
+            'birthday'    => 'required|date',
             'graduated_year' => 'required|integer',
             'phone'          => ['required', 'regex:/^(62|0)[0-9]{11}$/'],
             'email'          => 'required|email',
             'type'           => [
-                'required',
                 new Enum(ArchiveTypes::class),
             ],
             'photo' => [
@@ -70,6 +67,13 @@ class AddArchiveRequest extends FormRequest
                 File::types(['pdf', 'png', 'jpg', 'jpeg']),
                 'max:1024',
             ],
+            'points.*.lesson' => ['required', new Enum(LessonTypes::class)],
+            // 'points' => ['required', 'array'],
+            // 'points.*.s1' => ['required', 'integer', 'min:0', 'max:100'],
+            // 'points.*.s2' => ['required', 'integer', 'min:0', 'max:100'],
+            // 'points.*.s3' => ['required', 'integer', 'min:0', 'max:100'],
+            // 'points.*.s4' => ['required', 'integer', 'min:0', 'max:100'],
+            // 'points.*.s5' => ['required', 'integer', 'min:0', 'max:100'],
         ];
     }
 }

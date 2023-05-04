@@ -3,21 +3,13 @@
 namespace App\Http\Controllers\Api\Auth;
 
 use App\Http\Controllers\ApiController;
+use App\Http\Requests\RegisterRequest;
 use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
 class RegisterController extends ApiController
 {
-    public function rules(): array {
-        return [
-            'username' => 'required_without:email|min:4|max:20',
-            'password' => 'required|min:7|max:30',
-            'email' => 'required_without:username|unique|max:255',
-        ];
-    }
-
-    public function register(Request $request)
+    public function register(RegisterRequest $request)
     {
         $this->validate_request($request);
 
@@ -26,9 +18,7 @@ class RegisterController extends ApiController
         $user = User::where('email', $creds->get('email'))->orWhere('username', strtolower($creds->get('username')));
         if ($user->exists()) {
             return response()->json([
-                'errors' => [
-                    '_' => 'user is exists',
-                ],
+                'error' => 'user is exists',
             ], 400);
         }
 
@@ -44,7 +34,7 @@ class RegisterController extends ApiController
             ], 200);
         } else {
             return response()->json([
-                'errors' => ['_' => 'couldn\'t create the user'],
+                'errors' => 'couldn\'t create the user',
             ], 400);
         }
     }

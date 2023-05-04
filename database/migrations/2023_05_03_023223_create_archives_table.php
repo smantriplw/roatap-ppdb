@@ -15,14 +15,15 @@ return new class extends Migration
             $table->uuid('id')->primary();
 
             // UMUM
-            $table->integer('nisn'); // NISN
+            $table->unsignedBigInteger('nisn'); // NISN
+            $table->unsignedBigInteger('nik'); // NIK
             $table->string('name'); // Nama Siswa
             $table->string('mother_name'); // Nama Ibu
             $table->string('father_name'); // Nama Ayah
             $table->date('birthday'); // Tanggal Lahir
             $table->string('school'); // Asal Sekolah
             $table->integer('graduated_year'); // Tahun Lulus
-            $table->integer('phone'); // Nomor Telepon Siswa
+            $table->bigInteger('phone'); // Nomor Telepon Siswa
             $table->string('email'); // Email Aktif
             $table->enum('type', [
                 'zonasi',
@@ -32,6 +33,12 @@ return new class extends Migration
             ]); // Jalur Pendaftaran
             $table->string('photo_path'); // Lokasi nama foto
             $table->string('skhu_path'); // Lokasi SKHU
+
+            // ZONASI
+            $table->string('kk_path')->nullable();
+
+            // VERIFICATOR
+            $table->unsignedBigInteger('verificator_id')->nullable();
 
             // PRESTASI
             $table->string('certificate_path')->nullable(); // Lokasi foto sertifikat

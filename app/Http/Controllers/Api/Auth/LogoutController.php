@@ -8,7 +8,8 @@ class LogoutController extends ApiController {
         auth()->logout();
 
         return response()->json([
-            'data' => ['_' => 'OK'],
+            'data' => [],
+            'message' => 'OK',
         ]);
     }
 }
