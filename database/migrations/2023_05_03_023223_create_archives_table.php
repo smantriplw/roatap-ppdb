@@ -20,19 +20,33 @@ return new class extends Migration
             $table->string('name'); // Nama Siswa
             $table->string('mother_name'); // Nama Ibu
             $table->string('father_name'); // Nama Ayah
-            $table->date('birthday'); // Tanggal Lahir
+            $table->string('birthday'); // Tanggal Lahir
             $table->string('school'); // Asal Sekolah
             $table->integer('graduated_year'); // Tahun Lulus
             $table->bigInteger('phone'); // Nomor Telepon Siswa
             $table->string('email'); // Email Aktif
+            $table->text('address'); // Alamat
             $table->enum('type', [
                 'zonasi',
                 'prestasi',
                 'afirmasi',
                 'mutasi',
             ]); // Jalur Pendaftaran
-            $table->string('photo_path'); // Lokasi nama foto
-            $table->string('skhu_path'); // Lokasi SKHU
+            $table->enum('gender', [
+                'L',
+                'P',
+            ]); // Kelamin
+            $table->enum('religion', [
+                'islam',
+                'kristen',
+                'katolik',
+                'hindu',
+                'buddha',
+                'konghucu',
+            ]); // Agama
+            $table->string('photo_path')->nullable(); // Lokasi nama foto
+            $table->string('skhu_path')->nullable(); // Lokasi SKHU
+            // $table->string('narkoba_path')->nullable(); // Lokasi Narkoba
 
             // ZONASI
             $table->string('kk_path')->nullable();

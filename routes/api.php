@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\Auth\LoginController;
 use App\Http\Controllers\Api\Auth\LogoutController;
 use App\Http\Controllers\Api\Auth\ProfileController;
 use App\Http\Controllers\Api\Auth\RegisterController;
+use App\Http\Controllers\Api\NilaiSemester\SetNilaiSemesterController;
 use App\Http\Controllers\Api\Users\DeleteUserController;
 use App\Http\Controllers\Api\Users\ShowUserController;
 use App\Http\Middleware\JwtLogged;
@@ -71,12 +72,16 @@ Route::group([
         OnlyActiveUser::class,
     ]);
 
-    Route::post('/verify/{id}', [VerifyArchiveController::class, 'verify'])->middleware([
+    Route::post('/{id}/verify', [VerifyArchiveController::class, 'verify'])->middleware([
         JwtLogged::class,
         OnlyActiveUser::class,
     ]);
 
-    Route::post('/edit/{nisn}', [EditArchiveController::class, 'edit'])->where(
+    Route::post('/{nisn}/edit', [EditArchiveController::class, 'edit'])->where(
+        'nisn', '^[0-9]{10}$',
+    );
+
+    Route::post('/{nisn}/nilai', [SetNilaiSemesterController::class, 'store'])->where(
         'nisn', '^[0-9]{10}$',
     );
 });

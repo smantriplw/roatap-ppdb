@@ -37,6 +37,17 @@ class EditArchiveRequest extends FormRequest
             'type'           => [
                 new Enum(ArchiveTypes::class),
             ],
+            'gender' => [
+                'required',
+                new Enum(GenderTypes::class),
+            ],
+            'address' => [
+                'required',
+            ],
+            'religion' => [
+                'required',
+                new Enum(ReligionTypes::class),
+            ],
             'photo' => [
                 'required',
                 File::image(),
@@ -67,7 +78,7 @@ class EditArchiveRequest extends FormRequest
                 File::types(['pdf', 'png', 'jpg', 'jpeg']),
                 'max:1024',
             ],
-            'points.*.lesson' => ['required', new Enum(LessonTypes::class)],
+            // 'points.*.lesson' => ['required', new Enum(LessonTypes::class)],
             // 'points' => ['required', 'array'],
             // 'points.*.s1' => ['required', 'integer', 'min:0', 'max:100'],
             // 'points.*.s2' => ['required', 'integer', 'min:0', 'max:100'],

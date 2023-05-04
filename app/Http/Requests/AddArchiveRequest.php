@@ -3,10 +3,10 @@
 namespace App\Http\Requests;
 
 use App\Enums\ArchiveTypes;
-use App\Enums\LessonTypes;
+use App\Enums\GenderTypes;
+use App\Enums\ReligionTypes;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rules\Enum;
-use Illuminate\Validation\Rules\File;
 
 class AddArchiveRequest extends FormRequest
 {
@@ -40,35 +40,16 @@ class AddArchiveRequest extends FormRequest
                 'required',
                 new Enum(ArchiveTypes::class),
             ],
-            'photo' => [
+            'gender' => [
                 'required',
-                File::image(),
-                'max:1024',
+                new Enum(GenderTypes::class),
             ],
-            'skhu' => [
+            'address' => [
                 'required',
-                File::types(['pdf', 'jpeg', 'jpg', 'png']),
-                'max:1024',
             ],
-            'certificate' => [
-                'required_if:type,prestasi',
-                File::types(['pdf', 'jpeg', 'jpg', 'png']),
-                'max:1024',
-            ],
-            'kip' => [
-                'required_if:type,afirmasi',
-                File::types(['pdf', 'jpeg', 'jpg', 'png']),
-                'max:1024',
-            ],
-            'mutation' => [
-                'required_if:type,mutasi',
-                File::types(['pdf', 'jpeg', 'jpg', 'png']),
-                'max:1024',
-            ],
-            'kk' => [
-                'required_if:type,zonasi',
-                File::types(['pdf', 'png', 'jpg', 'jpeg']),
-                'max:1024',
+            'religion' => [
+                'required',
+                new Enum(ReligionTypes::class),
             ],
         ];
     }

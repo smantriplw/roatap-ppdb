@@ -5,6 +5,8 @@ use App\Enums\ArchiveTypes;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\EditArchiveRequest;
 use App\Models\Archive;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class EditArchiveController extends Controller
 {
@@ -22,7 +24,7 @@ class EditArchiveController extends Controller
             return response()->json([
                 'error' => 'Archive type doesn\'t match',
             ], 400);
-        } else if (strtotime($rows['birthday']) != strtotime($archive->value('birthday'))) {
+        } else if ($rows['birthday'] != $archive->value('birthday')) {
             return response()->json([
                 'error' => 'Birth doesn\'t match',
             ], 400);
@@ -33,76 +35,88 @@ class EditArchiveController extends Controller
         $photo = $request->file('photo');
         $rows['photo_path'] = $photo->storePubliclyAs('photos',
             $this->generate_filename(
-                $this->__extract_uuid($archive->value('photo_path')),
                 $photo->extension(),
             ),
         );
 
+        if ($archive->value('photo_path') !== null && isset($photo)) {
+            unset($rows['photo']);
+            Storage::delete($archive->value('photo_path'));
+        }
+
         $skhu = $request->file('skhu');
         $rows['skhu_path'] = $skhu->storePubliclyAs('skhus',
             $this->generate_filename(
-                $this->__extract_uuid($archive->value('skhu_path')),
                 $skhu->extension(),
             ),
         );
+
+        if ($archive->value('skhu_path') !== null && isset($skhu)) {
+            unset($rows['skhu']);
+            Storage::delete($archive->value('skhu_path'));
+        }
 
         switch($archive->value('type')) {
             case ArchiveTypes::PRESTASI:
                 $prestasi_file = $request->file('certificate');
                 $rows['certificate_path'] = $prestasi_file->storePubliclyAs('certificates',
                     $this->generate_filename(
-                        $this->__extract_uuid($archive->value('certificate_path')),
                         $prestasi_file->extension()),
                 );
+
+                if ($archive->value('certificate_path') !== null && isset($prestasi_file)) {
+                    Storage::delete($archive->value('certificate_path'));
+                }
                 unset($rows['certificate']);
                 break;
             case ArchiveTypes::AFIRMASI:
                 $afirmasi_file = $request->file('kip');
                 $rows['kip_path'] = $afirmasi_file->storePubliclyAs('kips',
                     $this->generate_filename(
-                        $this->__extract_uuid($archive->value('kip_path')),
                         $afirmasi_file->extension(),
                     ),
                 );
+                
+                if ($archive->value('kip_path') !== null && isset($afirmasi_file)) {
+                    Storage::delete($archive->value('kip_path'));
+                }
                 unset($rows['kip']);
                 break;
             case ArchiveTypes::MUTASI:
                 $mutasi_file = $request->file('mutation');
                 $rows['mutation_path'] = $mutasi_file->storePubliclyAs('mutations',
                     $this->generate_filename(
-                        $this->__extract_uuid($archive->value('mutation_path')),
                         $mutasi_file->extension(),
                     ),
                 );
+
+                if ($archive->value('mutation_path') !== null && isset($mutasi_file)) {
+                    Storage::delete($archive->value('mutation_path'));
+                }
                 unset($rows['mutation']);
                 break;
             default:
                 $kk_file = $request->file('kk');
                 $rows['kk_path'] = $kk_file->storePubliclyAs('kks',
                     $this->generate_filename(
-                        $this->__extract_uuid($archive->value('kk_path')),
                         $kk_file->extension(),
                     ),
                 );
+
+                if ($archive->value('kk_path') !== null && isset($kk_file)) {
+                    Storage::delete($archive->value('kk_path'));
+                }
                 unset($rows['kk']);
                 break;
         }
-
-        unset($rows['photo']);
-        unset($rows['skhu']);
 
         $archive->update($rows);
 
         return response()->json(['data' => $archive, 'message' => 'Edited']);
     }
 
-    protected function __extract_uuid(string $t): string
+    protected function generate_filename(string $ext): string
     {
-        return explode('.', $t)[0];
-    }
-
-    protected function generate_filename(string $uid, string $ext): string
-    {
-        return sprintf("%s.%s", str_replace('/', '', preg_replace("([a-zA-Z]+)", '', $uid)), $ext);
+        return sprintf("%s.%s", Str::uuid(), $ext);
     }
 }
