@@ -17,6 +17,7 @@ class NilaiSemester extends Model
         's3',
         's4',
         's5',
+        'archive_id',
     ];
 
     public function archive(): BelongsTo {

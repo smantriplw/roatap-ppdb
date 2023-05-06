@@ -10,8 +10,9 @@ use Illuminate\Support\Str;
 
 class EditArchiveController extends Controller
 {
-    public function edit(EditArchiveRequest $request, string $nisn)
+    public function edit(EditArchiveRequest $request)
     {
+        $nisn = auth('archive')->user()->nisn;
         $rows = $request->all();
         $archive = Archive::where('nisn', $nisn);
         if (!$archive->exists()) {

@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\Api\Archives\AddArchiveController;
 use App\Http\Controllers\Api\Archives\DeleteArchiveController;
+use App\Http\Controllers\Api\Archives\Edit\DetailsArchiveController;
+use App\Http\Controllers\Api\Archives\Edit\UploadArchiveController;
 use App\Http\Controllers\Api\Archives\EditArchiveController;
 use App\Http\Controllers\Api\Archives\VerifyArchiveController;
 use App\Http\Controllers\Api\Auth\LoginController;
@@ -75,21 +77,20 @@ Route::group([
         JwtLogged::class,
         OnlyActiveUser::class,
     ]);
-
     Route::post('/{id}/verify', [VerifyArchiveController::class, 'verify'])->middleware([
         JwtLogged::class,
         OnlyActiveUser::class,
     ]);
-
-    Route::post('/{nisn}/edit', [EditArchiveController::class, 'edit'])->where(
-        'nisn', '^[0-9]{10}$',
-    )->middleware([
+    Route::post('/edit', [EditArchiveController::class, 'edit'])->middleware([
         PesertaLogged::class,
     ]);
-
-    Route::post('/{nisn}/nilai', [SetNilaiSemesterController::class, 'store'])->where(
-        'nisn', '^[0-9]{10}$',
-    )->middleware([
+    Route::post('/edit/files', [UploadArchiveController::class, 'upload'])->middleware([
+        PesertaLogged::class,
+    ]);
+    Route::post('/edit/details', [DetailsArchiveController::class, 'edit'])->middleware([
+        PesertaLogged::class,
+    ]);
+    Route::post('/edit/nilai', [SetNilaiSemesterController::class, 'store'])->middleware([
         PesertaLogged::class,
     ]);
 });

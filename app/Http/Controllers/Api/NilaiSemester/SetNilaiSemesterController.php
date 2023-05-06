@@ -7,10 +7,11 @@ use App\Models\NilaiSemester;
 
 class SetNilaiSemesterController extends ApiController
 {
-    public function store(SetNilaiSemesterRequest $request, string $nisn)
+    public function store(SetNilaiSemesterRequest $request)
     {
         $rows = $request->all();
-        $result = NilaiSemester::upsert($rows, ['lesson'], ['s1', 's2', 's3', 's4', 's5']);
+        $rows['archive_id'] = auth('archive')->user()->id;
+        $result = NilaiSemester::upsert($rows, ['lesson', 'archive_id'], ['s1', 's2', 's3', 's4', 's5']);
 
         return response()->json([
             'data' => $result,
