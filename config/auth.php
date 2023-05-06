@@ -43,7 +43,11 @@ return [
         'api' => [
             'driver' => 'jwt',
             'provider' => 'users',
-        ]
+        ],
+        'archive' => [
+            'driver' => 'jwt',
+            'provider' => 'archives',
+        ],
     ],
 
     /*
@@ -67,6 +71,11 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
+        ],
+        
+        'archives' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Archive::class,
         ],
 
         // 'users' => [

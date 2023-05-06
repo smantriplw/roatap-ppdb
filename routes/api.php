@@ -9,10 +9,12 @@ use App\Http\Controllers\Api\Auth\LogoutController;
 use App\Http\Controllers\Api\Auth\ProfileController;
 use App\Http\Controllers\Api\Auth\RegisterController;
 use App\Http\Controllers\Api\NilaiSemester\SetNilaiSemesterController;
+use App\Http\Controllers\Api\Peserta\LoginPesertaController;
 use App\Http\Controllers\Api\Users\DeleteUserController;
 use App\Http\Controllers\Api\Users\ShowUserController;
 use App\Http\Middleware\JwtLogged;
 use App\Http\Middleware\OnlyActiveUser;
+use App\Http\Middleware\PesertaLogged;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -66,7 +68,9 @@ Route::group([
     'middleware' => 'api',
     'prefix' => 'archives',
 ], function() {
-    Route::post('/', [AddArchiveController::class, 'store']);
+    Route::post('/', [AddArchiveController::class, 'store'])->middleware([
+        PesertaLogged::class,
+    ]);
     Route::delete('/{id}', [DeleteArchiveController::class, 'delete'])->middleware([
         JwtLogged::class,
         OnlyActiveUser::class,
@@ -79,9 +83,24 @@ Route::group([
 
     Route::post('/{nisn}/edit', [EditArchiveController::class, 'edit'])->where(
         'nisn', '^[0-9]{10}$',
-    );
+    )->middleware([
+        PesertaLogged::class,
+    ]);
 
     Route::post('/{nisn}/nilai', [SetNilaiSemesterController::class, 'store'])->where(
         'nisn', '^[0-9]{10}$',
-    );
+    )->middleware([
+        PesertaLogged::class,
+    ]);
+});
+
+// /api/peserta
+Route::prefix([
+    'middleware' => 'api',
+    'prefix'     => 'peserta',
+], function() {
+    Route::post('/login', [LoginPesertaController::class, 'login'])->middleware('guest');
+    Route::post('/refresh', [LoginPesertaController::class, 'refresh'])->middleware([
+        PesertaLogged::class,
+    ]);
 });

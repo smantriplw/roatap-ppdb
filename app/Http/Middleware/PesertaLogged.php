@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class JwtLogged
+class PesertaLogged
 {
     /**
      * Handle an incoming request.
@@ -15,12 +15,12 @@ class JwtLogged
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (!auth()->check()) {
+        if (!auth('archive')->check()) {
             return response()->json([
                 'error' => 'Unauthorized',
             ], 401);
         }
-
+        
         return $next($request);
     }
 }

@@ -21,7 +21,7 @@ class OnlyActiveUser
             return $next($request);
         } else {
             return response()->json([
-                'errors' => ['_' => 'Unauthorized'],
+                'errors' => 'Unauthorized',
             ], 401);
         }
     }
