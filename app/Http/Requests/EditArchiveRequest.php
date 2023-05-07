@@ -30,7 +30,7 @@ class EditArchiveRequest extends FormRequest
             'mother_name' => 'required|min:3',
             'father_name' => 'required|min:3',
             'school'      => 'required',
-            'birthday'    => 'required|date',
+            'birthday'    => 'required',
             'graduated_year' => 'required|integer',
             'phone'          => ['required', 'regex:/^(62|0)[0-9]{11}$/'],
             'email'          => 'required|email',
