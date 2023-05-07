@@ -15,7 +15,7 @@ class grecaptcha implements ValidationRule
      */
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
-        $response = Http::post('https://www.google.com/recaptcha/api/siteverify', [
+        $response = Http::asForm()->post('https://www.google.com/recaptcha/api/siteverify', [
             'secret' => config('app.recaptchaKey'),
             'response' => $value,
         ]);
