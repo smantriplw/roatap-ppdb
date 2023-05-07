@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\Archives\AddArchiveController;
+use App\Http\Controllers\Api\Archives\CheckArchiveController;
 use App\Http\Controllers\Api\Archives\DeleteArchiveController;
 use App\Http\Controllers\Api\Archives\Edit\DetailsArchiveController;
 use App\Http\Controllers\Api\Archives\Edit\UploadArchiveController;
@@ -70,6 +71,7 @@ Route::group([
     'middleware' => 'api',
     'prefix' => 'archives',
 ], function() {
+    Route::post('/check', [CheckArchiveController::class, 'check']);
     Route::post('/', [AddArchiveController::class, 'store'])->middleware('guest');
     Route::delete('/{id}', [DeleteArchiveController::class, 'delete'])->middleware([
         JwtLogged::class,

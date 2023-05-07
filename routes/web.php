@@ -16,3 +16,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('index');
 });
+
+Route::get('/config', function() {
+    return response()->json([
+        'recaptcha' => [
+            'siteKey' => config('app.recaptchaSiteKey', 'NOT_SET'),
+        ],
+    ]);
+});

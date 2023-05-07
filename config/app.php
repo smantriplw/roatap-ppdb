@@ -68,6 +68,7 @@ return [
     **/
 
     'recaptchaKey' => env('CAPTCHA_SECRET_KEY'),
+    'recaptchaSiteKey' => env('CAPTCHA_SITE_KEY'),
 
     /*
     |--------------------------------------------------------------------------
