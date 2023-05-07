@@ -36,10 +36,6 @@ class Archive extends Model implements JWTSubject
         'verificator_id',
     ];
 
-    protected $casts = [
-        'birthday' => 'date:d/M/Y',
-    ];
-
     public function nilai(): HasMany {
         return $this->hasMany(NilaiSemester::class, 'archive_id');
     }
