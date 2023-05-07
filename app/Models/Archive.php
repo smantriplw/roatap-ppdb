@@ -23,6 +23,7 @@ class Archive extends Model implements JWTSubject
         'school',
         'graduated_year',
         'phone',
+        'address',
         'email',
         'type',
         
