@@ -70,9 +70,7 @@ Route::group([
     'middleware' => 'api',
     'prefix' => 'archives',
 ], function() {
-    Route::post('/', [AddArchiveController::class, 'store'])->middleware([
-        PesertaLogged::class,
-    ]);
+    Route::post('/', [AddArchiveController::class, 'store'])->middleware('guest');
     Route::delete('/{id}', [DeleteArchiveController::class, 'delete'])->middleware([
         JwtLogged::class,
         OnlyActiveUser::class,
