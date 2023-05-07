@@ -5,6 +5,7 @@ namespace App\Http\Requests;
 use App\Enums\ArchiveTypes;
 use App\Enums\GenderTypes;
 use App\Enums\ReligionTypes;
+use App\Rules\grecaptcha;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rules\Enum;
 
@@ -51,6 +52,10 @@ class AddArchiveRequest extends FormRequest
                 'required',
                 new Enum(ReligionTypes::class),
             ],
+            '_gtoken' => [
+                'required',
+                new grecaptcha,
+            ]
         ];
     }
 }

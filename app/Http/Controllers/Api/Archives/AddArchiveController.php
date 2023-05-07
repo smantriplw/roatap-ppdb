@@ -18,6 +18,7 @@ class AddArchiveController extends Controller
             ], 400);
         }
 
+        unset($rows['_gtoken']);
         $archive = Archive::create($rows);
         return response()->json([
             'error' => null,
