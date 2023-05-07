@@ -15,11 +15,11 @@ return [
     |
     */
 
-    'paths' => ['api/*', 'sanctum/csrf-cookie', 'config'],
+    'paths' => ['api/*', 'sanctum/csrf-cookie', '*'],
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['ppdb.sman3palu.sch.id', 'certgensm.hanifs.tech'],
+    'allowed_origins' => ['*'],
 
     'allowed_origins_patterns' => [],
 
