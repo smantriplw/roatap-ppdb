@@ -34,6 +34,7 @@ class AddArchiveRequest extends FormRequest
             'father_name' => 'required|min:3',
             'birthday'    => 'required',
             'school'      => 'required',
+            'address'     => 'required',
             'graduated_year' => 'required|integer',
             'phone'          => ['required', 'regex:/^(62|0)[0-9]{11}$/'],
             'email'          => 'required|email',
