@@ -14,7 +14,7 @@ class ValidDateRule implements ValidationRule
      */
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
-        if (count($value) !== 8) {
+        if (strlen($value) !== 8) {
             $fail('The :attribute must have 8 chars');
         }
     }
