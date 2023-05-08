@@ -21,7 +21,7 @@ class ValidDateRule implements ValidationRule
         }
 
         try {
-            Carbon::parse($formats[1]);
+            Carbon::parseFromLocale($formats[1], config('app.timezone'));
         } catch (\Exception $e) {
             $fail('invalid date');
         }
