@@ -12,7 +12,7 @@ class LoginPesertaController extends Controller
     {
         $date = trim(explode(',', $birth)[1]);
         $datec = Carbon::parseFromLocale($date, 'id_ID');
-        return $datec->format('dMY');
+        return $datec->format('dmY');
     }
 
     public function login(LoginPesertaRequest $request)
