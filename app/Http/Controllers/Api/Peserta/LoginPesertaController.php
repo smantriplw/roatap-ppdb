@@ -11,7 +11,7 @@ class LoginPesertaController extends Controller
     protected function __todatestr(string $birth): string
     {
         $date = trim(explode(',', $birth)[1]);
-        $datec = Carbon::parseFromLocale($date, config('app.timezone'));
+        $datec = Carbon::parseFromLocale($date, 'id_ID');
         return $datec->format('dMY');
     }
 
