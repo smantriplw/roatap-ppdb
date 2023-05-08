@@ -27,7 +27,6 @@ class LoginPesertaController extends Controller
         if ($this->__todatestr($archive->value('birthday')) !== $request->input('birth')) {
             return response()->json([
                 'error' => 'Birthday doesn\'t match',
-                '_expected' => $this->__todatestr($archive->value('birthday')),
             ]);
         }
 
