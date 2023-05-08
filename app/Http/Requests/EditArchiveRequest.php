@@ -32,7 +32,7 @@ class EditArchiveRequest extends FormRequest
             'school'      => 'required',
             'birthday'    => 'required',
             'graduated_year' => 'required|integer',
-            'phone'          => ['required', 'regex:/^(62|0)[0-9]{11}$/'],
+            'phone'          => ['required', 'phone:ID'],
             'email'          => 'required|email',
             'type'           => [
                 new Enum(ArchiveTypes::class),
