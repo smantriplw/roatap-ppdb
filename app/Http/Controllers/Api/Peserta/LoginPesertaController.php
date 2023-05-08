@@ -8,6 +8,13 @@ use Carbon\Carbon;
 
 class LoginPesertaController extends Controller
 {
+    protected function __todatestr(string $birth): string
+    {
+        $date = trim(explode(',', $birth)[1]);
+        $datec = Carbon::parseFromLocale($date, config('app.timezone'));
+        return $datec->format('dMY');
+    }
+
     public function login(LoginPesertaRequest $request)
     {
         $archive = Archive::where('nisn', $request->input('nisn'));
@@ -17,9 +24,10 @@ class LoginPesertaController extends Controller
             ]);
         }
 
-        if ($archive->value('birthday') !== $request->input('birth')) {
+        if ($this->__todatestr($archive->value('birthday')) !== $request->input('birth')) {
             return response()->json([
                 'error' => 'Birthday doesn\'t match',
+                '_expected' => $this->__todatestr($archive->value('birthday')),
             ]);
         }
 
