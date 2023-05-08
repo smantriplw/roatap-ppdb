@@ -32,7 +32,7 @@ class EditDetailsArchiveRequest extends FormRequest
             'father_name' => 'required|min:3',
             'school'      => 'required',
             'graduated_year' => 'required|integer',
-            'phone'          => ['required', 'phone:ID'],
+            'phone'          => ['required', 'regex:/^(08[0-9]{9,10})$/'],
             'email'          => 'required|email',
             'religion'       => ['required', Rule::enum(ReligionTypes::class)],
             'gender'         => ['required', Rule::enum(GenderTypes::class)],
