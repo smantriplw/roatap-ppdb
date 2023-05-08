@@ -25,7 +25,7 @@ class LoginPesertaRequest extends FormRequest
     {
         return [
             'nisn' => ['required', 'regex:/[0-9]{9,12}/'],
-            'birth' => ['required', new ValidDateRule],
+            'birth' => ['required', 'integer', new ValidDateRule],
         ];
     }
 }
