@@ -96,7 +96,7 @@ Route::group([
 });
 
 // /api/peserta
-Route::prefix([
+Route::group([
     'middleware' => 'api',
     'prefix'     => 'peserta',
 ], function() {
