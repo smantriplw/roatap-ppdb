@@ -6,6 +6,7 @@ use App\Enums\ArchiveTypes;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rules\Enum;
 use Illuminate\Validation\Rules\File;
+use Propaganistas\LaravelPhone\Rules\Phone;
 
 class EditArchiveRequest extends FormRequest
 {
@@ -32,7 +33,7 @@ class EditArchiveRequest extends FormRequest
             'school'      => 'required',
             'birthday'    => 'required',
             'graduated_year' => 'required|integer',
-            'phone'          => ['required', 'phone:ID'],
+            'phone'          => ['required', (new Phone)->country(['ID', 'MY'])],
             'email'          => 'required|email',
             'type'           => [
                 new Enum(ArchiveTypes::class),

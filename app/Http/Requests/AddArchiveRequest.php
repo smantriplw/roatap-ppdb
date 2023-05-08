@@ -8,6 +8,7 @@ use App\Enums\ReligionTypes;
 use App\Rules\grecaptcha;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rules\Enum;
+use Propaganistas\LaravelPhone\Rules\Phone;
 
 class AddArchiveRequest extends FormRequest
 {
@@ -35,7 +36,7 @@ class AddArchiveRequest extends FormRequest
             'birthday'    => 'required',
             'school'      => 'required',
             'graduated_year' => 'required|integer',
-            'phone'          => ['required', 'phone:ID'],
+            'phone'          => ['required', (new Phone)->country(['ID', 'MY'])],
             'email'          => 'required|email',
             'type'           => [
                 'required',
