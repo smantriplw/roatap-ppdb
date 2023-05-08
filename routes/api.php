@@ -104,4 +104,13 @@ Route::group([
     Route::post('/refresh', [LoginPesertaController::class, 'refresh'])->middleware([
         PesertaLogged::class,
     ]);
+    Route::get('/', function() {
+        return response()->json([
+            'error' => null,
+            'data' => auth('archive')->user(),
+            'message' => 'OK',
+        ]);
+    })->middleware([
+        PesertaLogged::class,
+    ]);
 });
