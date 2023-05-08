@@ -30,7 +30,7 @@ class LoginPesertaController extends Controller
             ]);
         }
 
-        $token = auth('archive')->login($archive);
+        $token = auth('archive')->login($archive->get());
         return response()->json([
             'error' => null,
             'data' => [
