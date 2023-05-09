@@ -15,8 +15,8 @@ return new class extends Migration
             $table->uuid('id')->primary();
 
             // UMUM
-            $table->unsignedBigInteger('nisn'); // NISN
-            $table->unsignedBigInteger('nik'); // NIK
+            $table->string('nisn'); // NISN
+            $table->string('nik'); // NIK
             $table->string('name'); // Nama Siswa
             $table->string('mother_name'); // Nama Ibu
             $table->string('father_name'); // Nama Ayah
