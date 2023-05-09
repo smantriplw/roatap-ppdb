@@ -14,7 +14,7 @@ class EditDetailsArchiveRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return !auth('archive')->check();
+        return auth('archive')->check();
     }
 
     /**
