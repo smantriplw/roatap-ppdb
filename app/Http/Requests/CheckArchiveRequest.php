@@ -25,7 +25,7 @@ class CheckArchiveRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nisn' => 'required|numeric|regex:/^[0-9]{10}$/',
+            'nisn' => 'required|regex:/^[0-9]{10}$/',
             'type' => [
                 'required',
                 new Enum(ArchiveTypes::class),

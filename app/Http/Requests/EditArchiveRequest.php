@@ -25,7 +25,7 @@ class EditArchiveRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nik' => 'required|numeric|regex:/^[0-9]{16}$/',
+            'nik' => 'required|regex:/^[0-9]{16}$/',
             'name' => 'required|min:3',
             'mother_name' => 'required|min:3',
             'father_name' => 'required|min:3',

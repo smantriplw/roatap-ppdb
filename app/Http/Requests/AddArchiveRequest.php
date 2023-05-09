@@ -27,8 +27,8 @@ class AddArchiveRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nik' => 'required|numeric|regex:/^[0-9]{16}$/',
-            'nisn' => 'required|numeric|regex:/^[0-9]{10}$/',
+            'nik' => 'required|regex:/^[0-9]{16}$/',
+            'nisn' => 'required|regex:/^[0-9]{10}$/',
             'name' => 'required|min:3',
             'mother_name' => 'required|min:3',
             'father_name' => 'required|min:3',
