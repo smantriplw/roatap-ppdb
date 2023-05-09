@@ -75,7 +75,7 @@ class EditArchiveRequest extends FormRequest
             ],
             'kk' => [
                 'required_if:type,zonasi',
-                File::types(['pdf', 'png', 'jpg', 'jpeg']),
+                File::types(['pdf']),
                 'max:1024',
             ],
             // 'points.*.lesson' => ['required', new Enum(LessonTypes::class)],

@@ -54,7 +54,7 @@ class UploadArchiveController extends Controller
                     $type === ArchiveTypes::ZONASI &&
                         $archive->value('kk_path') === null
                 ),
-                File::types(['pdf', 'png', 'jpg', 'jpeg']),
+                File::types(['pdf']),
                 'max:1024',
             ],
         ]);
