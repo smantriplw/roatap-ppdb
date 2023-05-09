@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\File;
+use Illuminate\Support\Str;
 
 class UploadArchiveController extends Controller
 {
@@ -145,5 +146,10 @@ class UploadArchiveController extends Controller
             'message' => 'Archive uploaded',
             'data' => [],
         ]);
+    }
+
+    protected function generate_filename(string $ext): string
+    {
+        return sprintf("%s.%s", Str::uuid(), $ext);
     }
 }
