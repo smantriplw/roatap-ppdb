@@ -26,6 +26,7 @@ class Archive extends Authenticatable implements JWTSubject
         'address',
         'email',
         'type',
+        'religion',
         
         'photo_path',
         'skhu_path',
