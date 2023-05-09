@@ -24,7 +24,7 @@ class UploadArchiveController extends Controller
                 'max:1024',
             ],
             'skhu' => [
-                Rule::requiredIf($archive('skhu_path') === null),
+                Rule::requiredIf($archive->value('skhu_path') === null),
                 File::types(['pdf', 'jpeg', 'jpg', 'png']),
                 'max:1024',
             ],
