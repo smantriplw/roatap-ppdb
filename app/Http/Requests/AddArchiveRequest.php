@@ -41,6 +41,10 @@ class AddArchiveRequest extends FormRequest
                 'required',
                 new Enum(ArchiveTypes::class),
             ],
+            'religion' => [
+                'required',
+                new Enum(ReligionTypes::class),
+            ],
             'gender' => [
                 'required',
                 new Enum(GenderTypes::class),
