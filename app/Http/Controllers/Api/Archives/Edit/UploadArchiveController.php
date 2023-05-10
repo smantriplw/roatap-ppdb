@@ -64,7 +64,7 @@ class UploadArchiveController extends Controller
 
         $photo = $request->file('photo');
         if (isset($photo)) {
-            $rows['photo_path'] = $photo->storePubliclyAs('photos',
+            $rows['photo_path'] = $photo->storePubliclyAs('public/photos',
                 $this->generate_filename(
                     $photo->extension(),
                 ),
@@ -77,20 +77,20 @@ class UploadArchiveController extends Controller
 
         $skhu = $request->file('skhu');
         if (isset($skhu)) {
-            $rows['skhu_path'] = $skhu->storePubliclyAs('skhus',
+            $rows['skhu_path'] = $skhu->storePubliclyAs('public/skhus',
                 $this->generate_filename(
                     $skhu->extension(),
                 ),
             );
             unset($rows['skhu']);
             if ($archive->value('skhu_path'))
-                Storage::delete($archive->value('skhu_path'));
+                Storage::delete($archive->value('public/skhu_path'));
         }
 
         switch($archive->value('type')) {
             case 'prestasi':
                 $prestasi_file = $request->file('certificate');
-                $rows['certificate_path'] = $prestasi_file->storePubliclyAs('certificates',
+                $rows['certificate_path'] = $prestasi_file->storePubliclyAs('public/certificates',
                     $this->generate_filename(
                         $prestasi_file->extension()),
                 );
@@ -102,7 +102,7 @@ class UploadArchiveController extends Controller
                 break;
             case 'afirmasi':
                 $afirmasi_file = $request->file('kip');
-                $rows['kip_path'] = $afirmasi_file->storePubliclyAs('kips',
+                $rows['kip_path'] = $afirmasi_file->storePubliclyAs('public/kips',
                     $this->generate_filename(
                         $afirmasi_file->extension(),
                     ),
@@ -115,7 +115,7 @@ class UploadArchiveController extends Controller
                 break;
             case 'mutasi':
                 $mutasi_file = $request->file('mutation');
-                $rows['mutation_path'] = $mutasi_file->storePubliclyAs('mutations',
+                $rows['mutation_path'] = $mutasi_file->storePubliclyAs('public/mutations',
                     $this->generate_filename(
                         $mutasi_file->extension(),
                     ),
@@ -128,7 +128,7 @@ class UploadArchiveController extends Controller
                 break;
             default:
                 $kk_file = $request->file('kk');
-                $rows['kk_path'] = $kk_file->storePubliclyAs('kks',
+                $rows['kk_path'] = $kk_file->storePubliclyAs('public/kks',
                     $this->generate_filename(
                         $kk_file->extension(),
                     ),
