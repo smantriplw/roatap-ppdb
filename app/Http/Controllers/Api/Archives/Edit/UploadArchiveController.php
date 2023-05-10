@@ -71,7 +71,8 @@ class UploadArchiveController extends Controller
             );
             unset($rows['photo']);
         
-            Storage::delete($archive->value('photo_path'));
+            if ($archive->value('photo_path'))
+                Storage::delete($archive->value('photo_path'));
         }
 
         $skhu = $request->file('skhu');
@@ -82,10 +83,11 @@ class UploadArchiveController extends Controller
                 ),
             );
             unset($rows['skhu']);
-            Storage::delete($archive->value('skhu_path'));
+            if ($archive->value('skhu_path'))
+                Storage::delete($archive->value('skhu_path'));
         }
 
-        switch($archive->value('type')) {
+        switch($archive->type('value')) {
             case ArchiveTypes::PRESTASI:
                 $prestasi_file = $request->file('certificate');
                 $rows['certificate_path'] = $prestasi_file->storePubliclyAs('certificates',
@@ -126,7 +128,7 @@ class UploadArchiveController extends Controller
                 break;
             default:
                 $kk_file = $request->file('kk');
-                $rows['kk_path'] = $kk_file->storePubliclyAs('kks',
+                if ($kk_file) $rows['kk_path'] = $kk_file->storePubliclyAs('kks',
                     $this->generate_filename(
                         $kk_file->extension(),
                     ),
@@ -144,7 +146,7 @@ class UploadArchiveController extends Controller
         return response()->json([
             'error' => null,
             'message' => 'Archive uploaded',
-            'data' => [],
+            'data' => $rows,
         ]);
     }
 
