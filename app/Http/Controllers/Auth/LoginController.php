@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
@@ -36,5 +39,30 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    /**
+     * Attempt to log the user into the application.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return bool
+     */
+    protected function attemptLogin(Request $request)
+    {
+        $creds = $this->credentials($request);
+        $user = User::where('email', $creds['email']);
+
+        if (!$user->exists()) {
+            return $this->sendFailedLoginResponse($request);
+        }
+
+        $hashedPassword = $user->value('password');
+        if (!Hash::check($request->input('password'), $hashedPassword)) {
+            return $this->sendFailedLoginResponse($request);
+        }
+        
+        return $this->guard()->login(
+           $user->first(), $request->filled('remember')
+        );
     }
 }
