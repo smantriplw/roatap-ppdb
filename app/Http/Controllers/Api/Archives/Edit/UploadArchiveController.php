@@ -90,10 +90,11 @@ class UploadArchiveController extends Controller
         switch($archive->value('type')) {
             case 'prestasi':
                 $prestasi_file = $request->file('certificate');
-                $rows['certificate_path'] = $prestasi_file->storePubliclyAs('public/certificates',
-                    $this->generate_filename(
-                        $prestasi_file->extension()),
-                );
+                if (isset($prestasi_file))
+                    $rows['certificate_path'] = $prestasi_file->storePubliclyAs('public/certificates',
+                        $this->generate_filename(
+                            $prestasi_file->extension()),
+                    );
 
                 if ($archive->value('certificate_path') !== null && isset($prestasi_file)) {
                     Storage::delete($archive->value('certificate_path'));
@@ -102,11 +103,12 @@ class UploadArchiveController extends Controller
                 break;
             case 'afirmasi':
                 $afirmasi_file = $request->file('kip');
-                $rows['kip_path'] = $afirmasi_file->storePubliclyAs('public/kips',
-                    $this->generate_filename(
-                        $afirmasi_file->extension(),
-                    ),
-                );
+                if (isset($afirmasi_file))
+                    $rows['kip_path'] = $afirmasi_file->storePubliclyAs('public/kips',
+                        $this->generate_filename(
+                            $afirmasi_file->extension(),
+                        ),
+                    );
                 
                 if ($archive->value('kip_path') !== null && isset($afirmasi_file)) {
                     Storage::delete($archive->value('kip_path'));
@@ -115,11 +117,12 @@ class UploadArchiveController extends Controller
                 break;
             case 'mutasi':
                 $mutasi_file = $request->file('mutation');
-                $rows['mutation_path'] = $mutasi_file->storePubliclyAs('public/mutations',
-                    $this->generate_filename(
-                        $mutasi_file->extension(),
-                    ),
-                );
+                if (isset($mutasi_file))
+                    $rows['mutation_path'] = $mutasi_file->storePubliclyAs('public/mutations',
+                        $this->generate_filename(
+                            $mutasi_file->extension(),
+                        ),
+                    );
 
                 if ($archive->value('mutation_path') !== null && isset($mutasi_file)) {
                     Storage::delete($archive->value('mutation_path'));
@@ -128,11 +131,12 @@ class UploadArchiveController extends Controller
                 break;
             default:
                 $kk_file = $request->file('kk');
-                $rows['kk_path'] = $kk_file->storePubliclyAs('public/kks',
-                    $this->generate_filename(
-                        $kk_file->extension(),
-                    ),
-                );
+                if (isset($kk_file))
+                    $rows['kk_path'] = $kk_file->storePubliclyAs('public/kks',
+                        $this->generate_filename(
+                            $kk_file->extension(),
+                        ),
+                    );
 
                 if ($archive->value('kk_path') !== null && isset($kk_file)) {
                     Storage::delete($archive->value('kk_path'));
