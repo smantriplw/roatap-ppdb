@@ -84,7 +84,7 @@ class UploadArchiveController extends Controller
             );
             unset($rows['skhu']);
             if ($archive->value('skhu_path'))
-                Storage::delete($archive->value('public/skhu_path'));
+                Storage::delete($archive->value('skhu_path'));
         }
 
         switch($archive->value('type')) {
