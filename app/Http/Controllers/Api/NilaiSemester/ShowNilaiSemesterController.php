@@ -3,6 +3,7 @@ namespace App\Http\Controllers\Api\NilaiSemester;
 
 use App\Http\Controllers\Controller;
 use App\Models\Archive;
+use App\Models\NilaiSemester;
 
 class ShowNilaiSemesterController extends Controller
 {
@@ -10,10 +11,9 @@ class ShowNilaiSemesterController extends Controller
     {
         $u = auth('archive')->user();
 
-        $archive = Archive::find($u->id);
         return response()->json([
             'error' => null,
-            'data' => $archive->nilai(),
+            'data' => NilaiSemester::all()->where('archive_id', '=', $u->id),
             'message' => 'fetched',
         ]);
     }

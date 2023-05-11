@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
 class Archive extends Authenticatable implements JWTSubject
@@ -38,8 +38,8 @@ class Archive extends Authenticatable implements JWTSubject
         'verificator_id',
     ];
 
-    public function nilai(): HasMany {
-        return $this->hasMany(NilaiSemester::class, 'archive_id');
+    public function nilai(): MorphMany {
+        return $this->morphMany(NilaiSemester::class, 'archive_id');
     }
 
     public function verificator(): BelongsTo {

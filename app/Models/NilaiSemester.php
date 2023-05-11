@@ -10,6 +10,7 @@ class NilaiSemester extends Model
 {
     use HasFactory;
 
+    protected $table = 'nilai_semester';
     protected $fillable = [
         'lesson',
         's1',
@@ -19,6 +20,7 @@ class NilaiSemester extends Model
         's5',
         'archive_id',
     ];
+    public $timestamps = false;
 
     public function archive(): BelongsTo {
         return $this->belongsTo(Archive::class, 'id', 'archive_id');
