@@ -15,7 +15,13 @@ class UploadArchiveController extends Controller
     public function upload(Request $request)
     {
         $archive = auth('archive')->user();
-        $archive = Archive::find($archive->id);
+        $archive = Archive::where('nisn', $archive->nisn);
+        if (!$archive->exists()) {
+            return response()->json([
+                'error' => 'Archive doesn\'t exist',
+                'data' => null,
+            ], 400);
+        }
         $type = $archive->value('type');
 
         $request->validate([
@@ -131,12 +137,11 @@ class UploadArchiveController extends Controller
                 break;
             default:
                 $kk_file = $request->file('kk');
-                if (isset($kk_file))
-                    $rows['kk_path'] = $kk_file->storePubliclyAs('public/kks',
-                        $this->generate_filename(
-                            $kk_file->extension(),
-                        ),
-                    );
+                $rows['kk_path'] = $kk_file->storePubliclyAs('public/kks',
+                    $this->generate_filename(
+                        $kk_file->extension(),
+                    ),
+                );
 
                 if ($archive->value('kk_path') !== null && isset($kk_file)) {
                     Storage::delete($archive->value('kk_path'));
