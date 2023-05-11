@@ -31,11 +31,12 @@ class SetNilaiSemesterController extends ApiController
                 unset($value['_key']);
 
             return $value;
+        })->each(function(mixed $value) {
+            NilaiSemester::upsert($value, ['lesson', 'archive_id'], ['s1', 's2', 's3', 's4', 's5']);
         });
 
-        $result = NilaiSemester::upsert($rows->toArray(), ['lesson', 'archive_id'], ['s1', 's2', 's3', 's4', 's5']);
         return response()->json([
-            'data' => $result,
+            'data' => $rows->toArray(),
             'message' => 'OK',
         ]);
     }
