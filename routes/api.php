@@ -118,4 +118,7 @@ Route::group([
     Route::get('/nilai', [ShowNilaiSemesterController::class, 'show'])->middleware([
         PesertaLogged::class,
     ]);
+    Route::post('/nilai', [SetNilaiSemesterController::class, 'store_array'])->middleware([
+        PesertaLogged::class,
+    ]);
 });

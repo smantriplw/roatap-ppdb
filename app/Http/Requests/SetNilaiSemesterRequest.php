@@ -24,7 +24,6 @@ class SetNilaiSemesterRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'birthday' => 'required|date',
             'lesson' => ['required', new Enum(LessonTypes::class)],
             's1' => ['required', 'integer', 'min:0', 'max:100'],
             's2' => ['required', 'integer', 'min:0', 'max:100'],
