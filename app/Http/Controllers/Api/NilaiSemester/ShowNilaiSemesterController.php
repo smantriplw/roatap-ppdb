@@ -9,9 +9,10 @@ class ShowNilaiSemesterController extends Controller
     public function show()
     {
         $u = auth('archive')->user();
+        $data = NilaiSemester::all()->whereStrict('archive_id', $u->id)->toArray();
         return response()->json([
             'error' => null,
-            'data' => NilaiSemester::all()->whereStrict('archive_id', $u->id),
+            'data' => array_values($data),
             'message' => 'fetched',
         ]);
     }
