@@ -137,11 +137,12 @@ class UploadArchiveController extends Controller
                 break;
             default:
                 $kk_file = $request->file('kk');
-                $rows['kk_path'] = $kk_file->storePubliclyAs('public/kks',
-                    $this->generate_filename(
-                        $kk_file->extension(),
-                    ),
-                );
+                if (isset($kk_file))
+                    $rows['kk_path'] = $kk_file->storePubliclyAs('public/kks',
+                        $this->generate_filename(
+                            $kk_file->extension(),
+                        ),
+                    );
 
                 if ($archive->value('kk_path') !== null && isset($kk_file)) {
                     Storage::delete($archive->value('kk_path'));
