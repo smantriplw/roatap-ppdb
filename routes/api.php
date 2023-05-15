@@ -13,6 +13,7 @@ use App\Http\Controllers\Api\Auth\ProfileController;
 use App\Http\Controllers\Api\Auth\RegisterController;
 use App\Http\Controllers\Api\NilaiSemester\SetNilaiSemesterController;
 use App\Http\Controllers\Api\NilaiSemester\ShowNilaiSemesterController;
+use App\Http\Controllers\Api\Peserta\KartuPendaftaranController;
 use App\Http\Controllers\Api\Peserta\LoginPesertaController;
 use App\Http\Controllers\Api\Users\DeleteUserController;
 use App\Http\Controllers\Api\Users\ShowUserController;
@@ -112,6 +113,10 @@ Route::group([
             'message' => 'OK',
         ]);
     })->middleware([
+        PesertaLogged::class,
+    ]);
+
+    Route::get('/card', [KartuPendaftaranController::class, 'show'])->middleware([
         PesertaLogged::class,
     ]);
 
