@@ -80,7 +80,20 @@ class KartuPendaftaranController extends Controller
         if (Storage::fileExists($kartu_path) && $request->query('force') === null) {
             return response()->file($kartu_path);
         } else {
-            $profile_image = imagecreatefrompng(Storage::path($user->photo_path));
+            $p = Storage::path($user->photo_path);
+            $profile_image = null;
+
+            switch(pathinfo($p, PATHINFO_EXTENSION)) {
+                case 'png':
+                    $profile_image = imagecreatefrompng($p);
+                    break;
+                case 'jpeg':
+                case 'jpg':
+                default:
+                    $profile_image = imagecreatefromjpeg($p);
+                    break;
+            }
+        
             $base_image = imagecreatefrompng(Storage::path('base.png'));
             $font_file = Storage::path('poppins.ttf');
 
