@@ -73,11 +73,11 @@ class KartuPendaftaranController extends Controller
         return $source;
     }
 
-    public function show() {
+    public function show(Request $request) {
         $user = auth('archive')->user();
         $kartu_path = Storage::path('public/cards/kartu_' . $user->id . '.png');
 
-        if (Storage::fileExists($kartu_path)) {
+        if (Storage::fileExists($kartu_path) && $request->query('force') === null) {
             return response()->file($kartu_path);
         } else {
             $profile_image = imagecreatefrompng(Storage::path($user->photo_path));
