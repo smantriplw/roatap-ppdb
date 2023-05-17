@@ -79,12 +79,7 @@ class KartuPendaftaranController extends Controller
         $kartu_path = Storage::path('public/cards/kartu_' . $user->id . '.png');
 
         if (Storage::fileExists($kartu_path) && $request->query('force') === null) {
-            return response()->json([
-                'error' => null,
-                'data' => [
-                    'photo' => sprintf('/storage/cards/kartu_%s.png', $user->id),
-                ],
-            ]);
+            return response()->file($kartu_path);
         } else {
             $p = Storage::path($user->photo_path);
             $profile_image = null;
@@ -119,17 +114,10 @@ class KartuPendaftaranController extends Controller
             imagettftext($base_image, 20, 0, 300, 696, 0, $font_file, strtoupper($user->school));
 
             if (!imagepng($base_image, $kartu_path)) {
-                return response()->json([
-                    'error' => 'Failed to generate the card',
-                ], 400);
+                return response('fail to generate', 400);
             }
 
-            return response()->json([
-                'error' => null,
-                'data' => [
-                    'photo' => sprintf('/storage/cards/kartu_%s.png', $user->id),
-                ],
-            ]);
+            return response()->file($kartu_path);
         }
     }
 }
