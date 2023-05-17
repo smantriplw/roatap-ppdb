@@ -3,6 +3,7 @@ namespace App\Http\Controllers\Api\Peserta;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 
@@ -93,6 +94,10 @@ class KartuPendaftaranController extends Controller
                     $profile_image = imagecreatefromjpeg($p);
                     break;
             }
+
+            $r = DB::table('archives')->selectRaw(
+                DB::raw('ROW_NUMBER() OVER() AS num_row, id')
+            )->get()->groupBy('id')->get($user->id);
         
             $base_image = imagecreatefrompng(Storage::path('base.png'));
             $font_file = Storage::path('poppins.ttf');
@@ -103,7 +108,7 @@ class KartuPendaftaranController extends Controller
             imagecopy($base_image, $profile_image, 290, 175, 0, 0, imagesx($profile_image), imagesy($profile_image));
             
             imagettftext($base_image, 20, 0, 300, 424, 0, $font_file, $user->name);
-            imagettftext($base_image, 20, 0, 300, 492, 0, $font_file, explode('-', $user->id)[0]);
+            imagettftext($base_image, 20, 0, 300, 492, 0, $font_file, 'PSB_' . str_pad(strval($r[0]->num_row), 3, '0', STR_PAD_LEFT));
             imagettftext($base_image, 20, 0, 300, 560, 0, $font_file, '0' . strval($user->phone));
             imagettftext($base_image, 20, 0, 300, 630, 0, $font_file, ucwords($user->type));
             imagettftext($base_image, 20, 0, 300, 696, 0, $font_file, strtoupper($user->school));
