@@ -114,10 +114,17 @@ class KartuPendaftaranController extends Controller
             imagettftext($base_image, 20, 0, 300, 696, 0, $font_file, strtoupper($user->school));
 
             if (!imagepng($base_image, $kartu_path)) {
-                return response('Failed', 400);
+                return response()->json([
+                    'error' => 'Failed to generate the card',
+                ], 400);
             }
 
-            return response()->file($kartu_path);
+            return response()->json([
+                'error' => null,
+                'data' => [
+                    'photo' => sprintf('%s/storage/cards/%s.png', config('app.url'), $user->id),
+                ],
+            ]);
         }
     }
 }
