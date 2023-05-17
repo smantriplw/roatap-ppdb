@@ -2,6 +2,7 @@
 namespace App\Http\Controllers\Api\Peserta;
 
 use App\Http\Controllers\Controller;
+use App\Models\Archive;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
@@ -76,6 +77,10 @@ class KartuPendaftaranController extends Controller
 
     public function show(Request $request) {
         $user = auth('archive')->user();
+        if (!$user->photo_path && !$user->skhu_path) {
+            return response('fail to generate', 400);
+        }
+    
         $kartu_path = Storage::path('public/cards/kartu_' . $user->id . '.png');
 
         if (Storage::fileExists($kartu_path) && $request->query('force') === null) {
@@ -95,9 +100,15 @@ class KartuPendaftaranController extends Controller
                     break;
             }
 
-            $r = DB::table('archives')->selectRaw(
-                DB::raw('ROW_NUMBER() OVER() AS num_row, id')
-            )->get()->groupBy('id')->get($user->id);
+            $no = Archive::all()->search(function(mixed $item) {
+                if ($item->id === auth('archive')->user()->id) {
+                    return $item;
+                }
+            });
+
+            if ($no === null) {
+                return response('fail to generate', 400);
+            }
         
             $base_image = imagecreatefrompng(Storage::path('base.png'));
             $font_file = Storage::path('poppins.ttf');
@@ -108,7 +119,7 @@ class KartuPendaftaranController extends Controller
             imagecopy($base_image, $profile_image, 290, 175, 0, 0, imagesx($profile_image), imagesy($profile_image));
             
             imagettftext($base_image, 20, 0, 300, 424, 0, $font_file, $user->name);
-            imagettftext($base_image, 20, 0, 300, 492, 0, $font_file, 'PSB_' . str_pad(strval($r[0]->num_row), 3, '0', STR_PAD_LEFT));
+            imagettftext($base_image, 20, 0, 300, 492, 0, $font_file, 'PSB_' . str_pad(strval($no+1), 3, '0', STR_PAD_LEFT));
             imagettftext($base_image, 20, 0, 300, 560, 0, $font_file, '0' . strval($user->phone));
             imagettftext($base_image, 20, 0, 300, 630, 0, $font_file, ucwords($user->type));
             imagettftext($base_image, 20, 0, 300, 696, 0, $font_file, strtoupper($user->school));
