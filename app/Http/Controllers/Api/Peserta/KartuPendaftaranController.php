@@ -82,7 +82,7 @@ class KartuPendaftaranController extends Controller
             return response()->json([
                 'error' => null,
                 'data' => [
-                    'photo' => sprintf('%s/storage/cards/%s.png', config('app.url'), $user->id),
+                    'photo' => sprintf('/storage/cards/%s.png', $user->id),
                 ],
             ]);
         } else {
@@ -127,7 +127,7 @@ class KartuPendaftaranController extends Controller
             return response()->json([
                 'error' => null,
                 'data' => [
-                    'photo' => sprintf('%s/storage/cards/%s.png', config('app.url'), $user->id),
+                    'photo' => sprintf('/storage/cards/%s.png', $user->id),
                 ],
             ]);
         }
