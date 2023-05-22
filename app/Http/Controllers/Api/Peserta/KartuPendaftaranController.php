@@ -3,9 +3,8 @@ namespace App\Http\Controllers\Api\Peserta;
 
 use App\Http\Controllers\Controller;
 use App\Models\Archive;
+use App\Models\NilaiSemester;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 
 class KartuPendaftaranController extends Controller
@@ -79,6 +78,14 @@ class KartuPendaftaranController extends Controller
         $user = auth('archive')->user();
         if (!$user->photo_path && !$user->skhu_path) {
             return response('fail to generate', 400);
+        }
+
+        $zeroPoints = NilaiSemester::where('archive_id', $user->id)->where(function ($query) {
+            return $query->where('s1', 0)->orWhere('s2', 0)->orWhere('s3', 0)->orWhere('s4', 0)->orWhere('s5', 0);
+        });
+
+        if ($zeroPoints->exists()) {
+            return response('fail to generate', 401);
         }
     
         $kartu_path = Storage::path('public/cards/kartu_' . $user->id . '.png');
