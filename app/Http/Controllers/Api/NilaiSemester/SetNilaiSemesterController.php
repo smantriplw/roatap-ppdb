@@ -27,6 +27,9 @@ class SetNilaiSemesterController extends ApiController
         $rows = collect($rows);
 
         $rows->each(function(mixed $value) {
+            if (isset($value['_key'])) {
+                unset($value['_key']);
+            }
             NilaiSemester::upsert(array_merge($value, [
                 'archive_id' => auth('archive')->user()->id,
             ]), ['lesson', 'archive_id'], ['s1', 's2', 's3', 's4', 's5']);
