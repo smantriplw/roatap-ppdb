@@ -11,8 +11,9 @@ class SetNilaiSemesterController extends ApiController
     public function store(SetNilaiSemesterRequest $request)
     {
         $rows = $request->all();
-        $rows['archive_id'] = auth('archive')->user()->id;
-        $result = NilaiSemester::upsert($rows, ['lesson', 'archive_id'], ['s1', 's2', 's3', 's4', 's5']);
+        $result = NilaiSemester::upsert(array_merge($rows, [
+            'archive_id' => auth('archive')->user()->id,
+        ]), ['lesson', 'archive_id'], ['s1', 's2', 's3', 's4', 's5']);
 
         return response()->json([
             'data' => $result,
@@ -22,17 +23,15 @@ class SetNilaiSemesterController extends ApiController
 
     public function store_array(SetsNilaiSemesterRequest $request)
     {
+        $user = auth('archive')->user();
+
         $rows = $request->all();
         $rows = collect($rows);
 
-        $rows->transform(function (mixed $value) {
-            $value['archive_id'] = auth('archive')->user()->id;
-            if (isset($value['_key']))
-                unset($value['_key']);
-
-            return $value;
-        })->each(function(mixed $value) {
-            NilaiSemester::upsert($value, ['lesson', 'archive_id'], ['s1', 's2', 's3', 's4', 's5']);
+        $rows->each(function(mixed $value) {
+            NilaiSemester::upsert(array_merge($value, [
+                'archive_id' => $value,
+            ]), ['lesson', 'archive_id'], ['s1', 's2', 's3', 's4', 's5']);
         });
 
         return response()->json([
