@@ -23,14 +23,12 @@ class SetNilaiSemesterController extends ApiController
 
     public function store_array(SetsNilaiSemesterRequest $request)
     {
-        $user = auth('archive')->user();
-
         $rows = $request->all();
         $rows = collect($rows);
 
         $rows->each(function(mixed $value) {
             NilaiSemester::upsert(array_merge($value, [
-                'archive_id' => $value,
+                'archive_id' => auth('archive')->user()->id,
             ]), ['lesson', 'archive_id'], ['s1', 's2', 's3', 's4', 's5']);
         });
 
