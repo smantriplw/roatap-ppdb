@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('home');
+    return view('index');
 });
 
 Route::get('/config', function() {
@@ -24,9 +24,3 @@ Route::get('/config', function() {
         ],
     ]);
 });
-
-Auth::routes([
-    'register' => false,
-]);
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

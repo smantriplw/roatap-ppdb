@@ -7,7 +7,6 @@
         <title>PPDB SMAN 3 Palu - Maintenance</title>
 
         <!-- CSS -->
-        @vite('resources/css/app.css')
     </head>
     <body class="antialiased">
        <div class="flex h-screen">
