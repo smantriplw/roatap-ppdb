@@ -16,12 +16,12 @@ use App\Http\Controllers\Api\NilaiSemester\ShowNilaiSemesterController;
 use App\Http\Controllers\Api\Peserta\KartuPendaftaranController;
 use App\Http\Controllers\Api\Peserta\LoginPesertaController;
 use App\Http\Controllers\Api\Peserta\ShowPesertaController;
+use App\Http\Controllers\Api\Stats\CommonStatsController;
 use App\Http\Controllers\Api\Users\DeleteUserController;
 use App\Http\Controllers\Api\Users\ShowUserController;
 use App\Http\Middleware\JwtLogged;
 use App\Http\Middleware\OnlyActiveUser;
 use App\Http\Middleware\PesertaLogged;
-use App\Models\NilaiSemester;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -121,5 +121,15 @@ Route::group([
     ]);
     Route::post('/nilai', [SetNilaiSemesterController::class, 'store_array'])->middleware([
         PesertaLogged::class,
+    ]);
+});
+
+// /api/stats
+Route::group([
+    'middleware' => 'api',
+    'prefix'     => 'stats',
+], function() {
+    Route::get('/', [CommonStatsController::class, 'view'])->middleware([
+        JwtLogged::class,
     ]);
 });
