@@ -12,12 +12,24 @@ class ShowArchivesController extends ApiController
         $user = auth()->user();
         $isVerified = $request->exists('verified');
 
-        $archives = Archive::where('verificator_id', $isVerified ? '!=' : '=', null)->cursorPaginate(
-            request('limit', 25)
+        $perPage = request('offset', 25);
+        $page    = request('page', 1);
+
+        $paginator = Archive::where('verificator_id', $isVerified ? '!=' : '=', null)->paginate(
+            $perPage,
+            '*',
+            'archives',
+            $page
         );
 
+        $currPage = $paginator->currentPage();
+
         return response()->json([
-            'data' => $archives,
+            'data' => [
+                'archives' => $paginator->items(),
+                'prev' => $currPage === 1 ? 1 : $currPage-1,
+                'next' => $currPage === $paginator->lastPage() ? $currPage : $currPage+1,
+            ]
         ]);
     }
 }
