@@ -27,8 +27,9 @@ class ShowArchivesController extends ApiController
         return response()->json([
             'data' => [
                 'archives' => $paginator->items(),
-                'prev' => $currPage === 1 ? 1 : $currPage-1,
-                'next' => $currPage === $paginator->lastPage() ? $currPage : $currPage+1,
+                'prevPage' => $currPage === 1 ? 1 : $currPage-1,
+                'nextPage' => $currPage === $paginator->lastPage() ? $currPage : $currPage+1,
+                'totalPage' => $paginator->lastPage(),
             ]
         ]);
     }
