@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\Archives\DeleteArchiveController;
 use App\Http\Controllers\Api\Archives\Edit\DetailsArchiveController;
 use App\Http\Controllers\Api\Archives\Edit\UploadArchiveController;
 use App\Http\Controllers\Api\Archives\EditArchiveController;
+use App\Http\Controllers\Api\Archives\ShowArchivesController;
 use App\Http\Controllers\Api\Archives\VerifyArchiveController;
 use App\Http\Controllers\Api\Auth\LoginController;
 use App\Http\Controllers\Api\Auth\LogoutController;
@@ -75,6 +76,9 @@ Route::group([
     'middleware' => 'api',
     'prefix' => 'archives',
 ], function() {
+    Route::get('/', [ShowArchivesController::class, 'show'])->middleware([
+        JwtLogged::class,
+    ]);
     Route::post('/check', [CheckArchiveController::class, 'check']);
     Route::post('/', [AddArchiveController::class, 'store'])->middleware('guest');
     Route::delete('/{id}', [DeleteArchiveController::class, 'delete'])->middleware([
