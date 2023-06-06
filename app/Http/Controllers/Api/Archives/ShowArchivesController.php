@@ -9,7 +9,6 @@ class ShowArchivesController extends ApiController
 {
     public function show(Request $request)
     {
-        $user = auth()->user();
         $isVerified = $request->exists('verified');
 
         $perPage = request('offset', 25);
@@ -31,6 +30,15 @@ class ShowArchivesController extends ApiController
                 'nextPage' => $currPage === $paginator->lastPage() ? $currPage : $currPage+1,
                 'totalPage' => $paginator->lastPage(),
             ]
+        ]);
+    }
+
+    public function singleShow(string $id)
+    {
+        $archive = Archive::find($id);
+
+        return response()->json([
+            'data' => $archive,
         ]);
     }
 }

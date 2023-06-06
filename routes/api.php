@@ -95,6 +95,10 @@ Route::group([
         JwtLogged::class,
         OnlyActiveUser::class,
     ]);
+    Route::get('/{id}', [ShowArchivesController::class, 'singleShow'])->middleware([
+        JwtLogged::class,
+        OnlyActiveUser::class,
+    ]);
     Route::post('/{id}/verify', [VerifyArchiveController::class, 'verify'])->middleware([
         JwtLogged::class,
         OnlyActiveUser::class,
