@@ -18,10 +18,12 @@ use App\Http\Controllers\Api\Peserta\KartuPendaftaranController;
 use App\Http\Controllers\Api\Peserta\LoginPesertaController;
 use App\Http\Controllers\Api\Peserta\ShowPesertaController;
 use App\Http\Controllers\Api\Stats\CommonStatsController;
+use App\Http\Controllers\Api\Users\CreateUserController;
 use App\Http\Controllers\Api\Users\DeleteUserController;
 use App\Http\Controllers\Api\Users\ShowUserController;
 use App\Http\Middleware\JwtLogged;
 use App\Http\Middleware\OnlyActiveUser;
+use App\Http\Middleware\OnlySuperAdminUser;
 use App\Http\Middleware\PesertaLogged;
 use Illuminate\Support\Facades\Route;
 
@@ -68,6 +70,14 @@ Route::group([
     ]);
     Route::get('{id}', [ShowUserController::class, 'show'])->middleware([
         JwtLogged::class,
+    ]);
+    Route::get('/', [ShowUserController::class, 'shows'])->middleware([
+        JwtLogged::class,
+        OnlyActiveUser::class,
+    ]);
+    Route::post('/', [CreateUserController::class, 'create'])->middleware([
+        JwtLogged::class,
+        OnlySuperAdminUser::class,
     ]);
 });
 

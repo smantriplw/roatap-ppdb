@@ -22,5 +22,12 @@ class ShowUserController extends ApiController
             ], 404);
         }
     }
+
+    public function shows()
+    {
+        return response()->json([
+            'data' => User::all(),
+        ]);
+    }
 }
 ?>
