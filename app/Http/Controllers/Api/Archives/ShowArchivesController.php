@@ -15,18 +15,22 @@ class ShowArchivesController extends ApiController
         $perPage = request('offset', 25);
         $page    = request('page', 1);
 
+        $paginator = null;
         if (!$isAll)
-            $paginator = Archive::where('verificator_id', $isVerified ? '!=' : '=', null);
+            $paginator = Archive::where('verificator_id', $isVerified ? '!=' : '=', null)->paginate(
+                $perPage,
+                '*',
+                'archives',
+                $page
+            );
         else {
-            $paginator = Archive::all();
+            $paginator = Archive::paginate(
+                $perPage,
+                '*',
+                'archives',
+                $page
+            );;
         }
-        
-        $paginator = $paginator->paginate(
-            $perPage,
-            '*',
-            'archives',
-            $page
-        );
 
         $currPage = $paginator->currentPage();
 
