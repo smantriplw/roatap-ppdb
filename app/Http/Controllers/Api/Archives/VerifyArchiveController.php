@@ -2,12 +2,13 @@
 namespace App\Http\Controllers\Api\Archives;
 
 use App\Http\Controllers\ApiController;
+use App\Http\Requests\VerifyRequest;
 use App\Models\Archive;
-use Illuminate\Http\Request;
+use App\Models\VerifyModel;
 
 class VerifyArchiveController extends ApiController
 {
-    public function verify(Request $request, string $id)
+    public function verify(VerifyRequest $request, string $id)
     {
         $user = $request->user();
         $archive = Archive::find($id);
@@ -17,30 +18,16 @@ class VerifyArchiveController extends ApiController
             ], 400);
         }
 
+        $verifyMod = VerifyModel::create(array_merge($request->all(), [
+            'archive_id' => $archive->value('id'),
+        ]));
+
         $archive->update([
             'verificator_id' => $user->id,
         ]);
 
         return response()->json([
-            'data' => 'Verified',
-        ]);
-    }
-
-    public function unverify(Request $request, string $id)
-    {
-        $archive = Archive::find($id);
-        if (!isset($archive) || $archive->value('verificator_id') == null) {
-            return response()->json([
-                'error' => 'Archive doesn\'t exist',
-            ], 400);
-        }
-
-        $archive->update([
-            'verificator_id' => null,
-        ]);
-
-        return response()->json([
-            'data' => 'Verified',
+            'data' => $verifyMod,
         ]);
     }
 }

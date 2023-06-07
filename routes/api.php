@@ -103,10 +103,10 @@ Route::group([
         JwtLogged::class,
         OnlyActiveUser::class,
     ]);
-    Route::post('/{id}/unverify', [VerifyArchiveController::class, 'unverify'])->middleware([
-        JwtLogged::class,
-        OnlyActiveUser::class,
-    ]);
+    // Route::post('/{id}/unverify', [VerifyArchiveController::class, 'unverify'])->middleware([
+    //     JwtLogged::class,
+    //     OnlyActiveUser::class,
+    // ]);
     Route::post('/edit', [EditArchiveController::class, 'edit'])->middleware([
         PesertaLogged::class,
     ]);
