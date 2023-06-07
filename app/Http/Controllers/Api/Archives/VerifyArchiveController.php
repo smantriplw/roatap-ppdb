@@ -1,12 +1,12 @@
 <?php
 namespace App\Http\Controllers\Api\Archives;
 
-use App\Http\Controllers\ApiController;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\VerifyRequest;
 use App\Models\Archive;
 use App\Models\VerifyModel;
 
-class VerifyArchiveController extends ApiController
+class VerifyArchiveController extends Controller
 {
     public function verify(VerifyRequest $request, string $id)
     {
