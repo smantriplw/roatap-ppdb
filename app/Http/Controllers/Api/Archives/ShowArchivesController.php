@@ -10,11 +10,18 @@ class ShowArchivesController extends ApiController
     public function show(Request $request)
     {
         $isVerified = $request->exists('verified');
+        $isAll = $request->exists('all');
 
         $perPage = request('offset', 25);
         $page    = request('page', 1);
 
-        $paginator = Archive::where('verificator_id', $isVerified ? '!=' : '=', null)->paginate(
+        if (!$isAll)
+            $paginator = Archive::where('verificator_id', $isVerified ? '!=' : '=', null);
+        else {
+            $paginator = Archive::all();
+        }
+        
+        $paginator = $paginator->paginate(
             $perPage,
             '*',
             'archives',
