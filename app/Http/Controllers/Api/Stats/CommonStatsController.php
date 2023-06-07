@@ -22,6 +22,8 @@ class CommonStatsController extends ApiController
                     'todayVerified' => $users->where('updated_at', '>=', Carbon::today())->where('verificator_id', '!=', null)->count(),
                 ],
                 'specified' => $users->countBy('type'),
+                'verified' => $users->where('verificator_id', '!=', null)->count(),
+                'nonVerified' => $users->where('verificator_id', '=', null)->count(),
             ],
         ];
     }
