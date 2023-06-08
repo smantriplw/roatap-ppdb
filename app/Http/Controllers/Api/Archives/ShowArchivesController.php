@@ -17,14 +17,16 @@ class ShowArchivesController extends ApiController
 
         $paginator = null;
         if (!$isAll)
-            $paginator = Archive::where('verificator_id', $isVerified ? '!=' : '=', null)->paginate(
+            $paginator = Archive::with([
+                'verifyData'
+            ])->where('verificator_id', $isVerified ? '!=' : '=', null)->paginate(
                 $perPage,
                 '*',
                 'archives',
                 $page
             );
         else {
-            $paginator = Archive::paginate(
+            $paginator = Archive::with('verifies')->paginate(
                 $perPage,
                 '*',
                 'archives',

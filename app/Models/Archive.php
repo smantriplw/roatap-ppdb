@@ -46,6 +46,10 @@ class Archive extends Authenticatable implements JWTSubject
         return $this->belongsTo(User::class, 'id', 'verificator_id');
     }
 
+    public function verifyData(): BelongsTo {
+        return $this->belongsTo(VerifyModel::class, 'id', 'archive_id');
+    }
+
     /**
      * Get the identifier that will be stored in the subject claim of the JWT.
      *
