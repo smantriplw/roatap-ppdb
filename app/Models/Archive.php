@@ -43,7 +43,7 @@ class Archive extends Authenticatable implements JWTSubject
     }
 
     public function verificator(): BelongsTo {
-        return $this->belongsTo(User::class, 'id', 'verificator_id');
+        return $this->belongsTo(User::class, 'verificator_id', 'id');
     }
 
     public function verifyData(): BelongsTo {
