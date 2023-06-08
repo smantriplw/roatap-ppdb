@@ -13,5 +13,6 @@ class VerifyModel extends Model
     protected $fillable = [
         'isSafe',
         'message',
+        'archive_id',
     ];
 }
