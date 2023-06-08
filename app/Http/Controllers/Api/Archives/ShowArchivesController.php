@@ -26,7 +26,7 @@ class ShowArchivesController extends ApiController
                 $page
             );
         else {
-            $paginator = Archive::with('verifies')->paginate(
+            $paginator = Archive::with('verifyData')->paginate(
                 $perPage,
                 '*',
                 'archives',
