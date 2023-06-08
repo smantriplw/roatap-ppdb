@@ -19,7 +19,7 @@ class VerifyArchiveController extends Controller
         }
 
         $verifyMod = VerifyModel::create(array_merge($request->all(), [
-            'archive_id' => $archive->value('id'),
+            'archive_id' => $id,
         ]));
 
         $archive->update([
