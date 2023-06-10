@@ -80,7 +80,7 @@ Route::group([
         JwtLogged::class,
         OnlySuperAdminUser::class,
     ]);
-    Route::put('/{id}', [EditUserController::class, 'edit'])->middleware([
+    Route::put('{id}', [EditUserController::class, 'edit'])->middleware([
         JwtLogged::class,
         OnlyActiveUser::class,
     ]);
