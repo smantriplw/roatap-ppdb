@@ -20,6 +20,7 @@ use App\Http\Controllers\Api\Peserta\ShowPesertaController;
 use App\Http\Controllers\Api\Stats\CommonStatsController;
 use App\Http\Controllers\Api\Users\CreateUserController;
 use App\Http\Controllers\Api\Users\DeleteUserController;
+use App\Http\Controllers\Api\Users\EditUserController;
 use App\Http\Controllers\Api\Users\ShowUserController;
 use App\Http\Middleware\JwtLogged;
 use App\Http\Middleware\OnlyActiveUser;
@@ -78,6 +79,10 @@ Route::group([
     Route::post('/', [CreateUserController::class, 'create'])->middleware([
         JwtLogged::class,
         OnlySuperAdminUser::class,
+    ]);
+    Route::put('/{id}', [EditUserController::class, 'edit'])->middleware([
+        JwtLogged::class,
+        OnlyActiveUser::class,
     ]);
 });
 
