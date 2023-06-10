@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\Archives\AddArchiveController;
 use App\Http\Controllers\Api\Archives\CheckArchiveController;
+use App\Http\Controllers\Api\Archives\ConfirmArchiveController;
 use App\Http\Controllers\Api\Archives\DeleteArchiveController;
 use App\Http\Controllers\Api\Archives\Edit\DetailsArchiveController;
 use App\Http\Controllers\Api\Archives\Edit\UploadArchiveController;
@@ -92,6 +93,12 @@ Route::group([
     'prefix' => 'archives',
 ], function() {
     Route::get('/', [ShowArchivesController::class, 'show'])->middleware([
+        JwtLogged::class,
+    ]);
+    Route::get('/confirmed', [ConfirmArchiveController::class, 'showConfirmResponse'])->middleware([
+        JwtLogged::class,
+    ]);
+    Route::post('/confirmed', [ConfirmArchiveController::class, 'confirm'])->middleware([
         JwtLogged::class,
     ]);
     Route::post('/check', [CheckArchiveController::class, 'check']);
