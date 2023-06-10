@@ -24,7 +24,7 @@ class EditUserRequest extends FormRequest
     {
         return [
             'username' => 'required_without:email|min:4|max:20',
-            'password' => 'required|min:7|max:30',
+            'password' => 'sometimes|min:7|max:30',
             'status' => [
                 'required',
                 'integer',
