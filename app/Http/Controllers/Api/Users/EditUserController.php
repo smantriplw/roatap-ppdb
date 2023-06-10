@@ -18,7 +18,8 @@ class EditUserController extends ApiController
             return response('', 404);
         }
 
-        $rows['password'] = Hash::make($rows['password']);
+        if (isset($rows['password']))
+            $rows['password'] = Hash::make($rows['password']);
         $user->update($rows);
         return response()->json([
             'data' => $user,
