@@ -12,7 +12,7 @@ class VerifyArchiveController extends Controller
     {
         $user = $request->user();
         $archive = Archive::find($id);
-        if (!isset($archive) || $archive->value('verificator_id') !== null) {
+        if (!isset($archive) || $archive->verificator_id !== null) {
             return response()->json([
                 'error' => 'Archive doesn\'t exist',
             ], 400);
