@@ -39,7 +39,7 @@ class ShowArchivesController extends ApiController
         $items = $paginator->items();
 
         for ($i=0; $i < count($items); $i++) { 
-            $items[$i]['id'] = $i+1;
+            $items[$i]['index'] = $i+1;
         }
 
         return response()->json([
