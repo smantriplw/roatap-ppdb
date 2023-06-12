@@ -32,14 +32,19 @@ class ShowArchivesController extends ApiController
                 '*',
                 'archives',
                 $page
-            );;
+            );
         }
 
         $currPage = $paginator->currentPage();
+        $items = $paginator->items();
+
+        for ($i=0; $i < count($items); $i++) { 
+            $items[$i]['id'] = $i+1;
+        }
 
         return response()->json([
             'data' => [
-                'archives' => $paginator->items(),
+                'archives' => $items,
                 'prevPage' => $currPage === 1 ? 1 : $currPage-1,
                 'nextPage' => $currPage === $paginator->lastPage() ? $currPage : $currPage+1,
                 'totalPage' => $paginator->lastPage(),
