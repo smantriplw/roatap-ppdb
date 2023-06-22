@@ -15,6 +15,7 @@ use App\Http\Controllers\Api\Auth\ProfileController;
 use App\Http\Controllers\Api\Auth\RegisterController;
 use App\Http\Controllers\Api\NilaiSemester\SetNilaiSemesterController;
 use App\Http\Controllers\Api\NilaiSemester\ShowNilaiSemesterController;
+use App\Http\Controllers\Api\Peserta\DaftarUlangPesertaController;
 use App\Http\Controllers\Api\Peserta\KartuPendaftaranController;
 use App\Http\Controllers\Api\Peserta\LoginPesertaController;
 use App\Http\Controllers\Api\Peserta\ShowPesertaController;
@@ -26,6 +27,7 @@ use App\Http\Controllers\Api\Users\ShowUserController;
 use App\Http\Middleware\JwtLogged;
 use App\Http\Middleware\OnlyActiveUser;
 use App\Http\Middleware\OnlySuperAdminUser;
+use App\Http\Middleware\OnlyVerifiedPeserta;
 use App\Http\Middleware\PesertaLogged;
 use Illuminate\Support\Facades\Route;
 
@@ -155,6 +157,14 @@ Route::group([
     ]);
     Route::post('/nilai', [SetNilaiSemesterController::class, 'store_array'])->middleware([
         PesertaLogged::class,
+    ]);
+    Route::post('/daftar_ulang', [DaftarUlangPesertaController::class, 'updateState'])->middleware([
+        PesertaLogged::class,
+        OnlyVerifiedPeserta::class,
+    ]);
+    Route::get('/daftar_ulang', [DaftarUlangPesertaController::class, 'currentState'])->middleware([
+        PesertaLogged::class,
+        OnlyVerifiedPeserta::class,
     ]);
 });
 

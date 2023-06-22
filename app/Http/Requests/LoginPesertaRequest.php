@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\grecaptcha;
 use App\Rules\ValidDateRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
@@ -26,6 +27,10 @@ class LoginPesertaRequest extends FormRequest
         return [
             'nisn' => ['required', 'regex:/[0-9]{9,12}/'],
             'birth' => ['required', new ValidDateRule],
+            '_gtoken' => [
+                'required',
+                new grecaptcha,
+            ]
         ];
     }
 }
