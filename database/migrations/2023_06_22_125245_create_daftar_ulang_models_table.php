@@ -44,7 +44,7 @@ return new class extends Migration
                 'Informal', 'Lainnya', 'Non formal',
                 'Paket A', 'Paket B', 'Paket C', 'PAUD',
                 'Putus SD', 'S1', 'S2', 'S2 Terapan', 'S3',
-                'SD', 'SMP', 'Sp-1','Sp-2', 'Tidak sekolah', 'TK',
+                'SD', 'SMP', 'SMA', 'Sp-1','Sp-2', 'Tidak sekolah', 'TK',
             ]); // based on Dapodik's data
             $table->enum('job_father', [
                 'Tidak bekerja', 'Nelayan', 'Petani', 'Peternak',
@@ -66,7 +66,7 @@ return new class extends Migration
                 'Informal', 'Lainnya', 'Non formal',
                 'Paket A', 'Paket B', 'Paket C', 'PAUD',
                 'Putus SD', 'S1', 'S2', 'S2 Terapan', 'S3',
-                'SD', 'SMP', 'Sp-1','Sp-2', 'Tidak sekolah', 'TK',
+                'SD', 'SMP', 'SMA', 'Sp-1','Sp-2', 'Tidak sekolah', 'TK',
             ]); // based on Dapodik's data
             $table->enum('job_mother', [
                 'Tidak bekerja', 'Nelayan', 'Petani', 'Peternak',
@@ -88,7 +88,7 @@ return new class extends Migration
                 'Informal', 'Lainnya', 'Non formal',
                 'Paket A', 'Paket B', 'Paket C', 'PAUD',
                 'Putus SD', 'S1', 'S2', 'S2 Terapan', 'S3',
-                'SD', 'SMP', 'Sp-1','Sp-2', 'Tidak sekolah', 'TK',
+                'SD', 'SMP', 'SMA', 'Sp-1','Sp-2', 'Tidak sekolah', 'TK',
             ])->nullable(); // based on Dapodik's data
             $table->enum('job_wali', [
                 'Tidak bekerja', 'Nelayan', 'Petani', 'Peternak',

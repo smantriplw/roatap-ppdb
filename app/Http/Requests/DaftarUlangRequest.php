@@ -33,7 +33,7 @@ class DaftarUlangRequest extends FormRequest
             'Informal', 'Lainnya', 'Non formal',
             'Paket A', 'Paket B', 'Paket C', 'PAUD',
             'Putus SD', 'S1', 'S2', 'S2 Terapan', 'S3',
-            'SD', 'SMP', 'Sp-1','Sp-2', 'Tidak sekolah', 'TK',
+            'SD', 'SMP', 'SMA', 'Sp-1','Sp-2', 'Tidak sekolah', 'TK',
         ];
         $jobs = [
             'Tidak bekerja', 'Nelayan', 'Petani', 'Peternak',
