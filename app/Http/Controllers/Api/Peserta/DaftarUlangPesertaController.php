@@ -18,7 +18,7 @@ class DaftarUlangPesertaController extends Controller
         
 
         return response()->json([
-            'data' => $user->daftarUlang,
+            'data' => DaftarUlangModel::where('archive_id', $user->id)->first(),
         ]);
     }
 
