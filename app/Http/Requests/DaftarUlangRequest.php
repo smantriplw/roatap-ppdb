@@ -58,8 +58,8 @@ class DaftarUlangRequest extends FormRequest
             'head_circumference' => 'required|numeric',
             'school_distance' => 'required|numeric',
             'school_est_time' => 'required|numeric',
-            'siblings' => 'required|numeric|min:1',
-            'siblings_position' => 'required|numeric',
+            'siblings' => 'required|numeric|min:0',
+            'siblings_position' => 'required|numeric|min:0',
 
             'transportation' => ['required', Rule::in([
                 'Jalan Kaki', 'Angkutan umum/bus/pete-pete', 'Mobil/bus antar jemput',
