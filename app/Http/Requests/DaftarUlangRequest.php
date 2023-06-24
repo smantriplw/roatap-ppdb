@@ -64,7 +64,7 @@ class DaftarUlangRequest extends FormRequest
             'transportation' => ['required', Rule::in([
                 'Jalan Kaki', 'Angkutan umum/bus/pete-pete', 'Mobil/bus antar jemput',
                 'Kereta Api', 'Ojek', 'Andong/bendi/sado/dokar/delman/becak',
-                'Perahu penyeberangan/rakit/getek', 'Kuda', 'Sepeda',
+                'Perahu penyeberangan/rakit/getek', 'Motor', 'Sepeda',
             ])],
             'live' => ['required', Rule::in([
                 'Bersama orang tua', 'Wali', 'Kost', 'Asrama',
