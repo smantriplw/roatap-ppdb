@@ -1,5 +1,6 @@
 <?php
 
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Facade;
 
 return [
@@ -225,4 +226,24 @@ return [
         // 'ExampleClass' => App\Example\ExampleClass::class,
     ])->toArray(),
 
+    /*
+    |--------------------------------------------------------------------------
+    | PPDB Configuration
+    |--------------------------------------------------------------------------
+    |
+    | 0. When the PPDB is open (ppdb.open)
+    | 1. When the PPDB registration is closed (ppdb.registerClosed)
+    | 2. When the PPDB announcement is open (ppdb.announcement)
+    | 3. When the PPDB pre-registration open (ppdb.preRegistration)
+    | 4. When the PPDB event is completely closed (ppdb.closed)
+    |
+    */
+
+    'ppdb' => [
+        'open' => '2023-05-03',
+        'registerClosed' => '2023-06-10',
+        'announcement' => '2023-06-23',
+        'preRegistration' => '2023-06-24',
+        'closed' => '2023-07-06',
+    ],
 ];
