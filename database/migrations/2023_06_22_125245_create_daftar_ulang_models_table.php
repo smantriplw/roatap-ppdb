@@ -29,7 +29,7 @@ return new class extends Migration
             $table->enum('transportation', [
                 'Jalan Kaki', 'Angkutan umum/bus/pete-pete', 'Mobil/bus antar jemput',
                 'Kereta Api', 'Ojek', 'Andong/bendi/sado/dokar/delman/becak',
-                'Perahu penyeberangan/rakit/getek', 'Kuda', 'Sepeda',
+                'Perahu penyeberangan/rakit/getek', 'Motor', 'Sepeda',
             ]); // based on Dapodik's data
             $table->enum('live', [
                 'Bersama orang tua', 'Wali', 'Kost', 'Asrama',

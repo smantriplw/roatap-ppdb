@@ -51,20 +51,20 @@ class DaftarUlangRequest extends FormRequest
             'no_kk' => 'required|regex:/^[0-9]{16}$/',
             'kabupaten' => 'required|max:255',
             'kecamatan' => 'required|max:255',
-            'no_kip' => 'sometimes|numeric',
+            'no_kip' => 'sometimes|regex:/[a-zA-Z0-9]/gi',
             
             'height_body' => 'required|numeric|min:30',
             'width_body' => 'required|numeric',
             'head_circumference' => 'required|numeric',
             'school_distance' => 'required|numeric',
             'school_est_time' => 'required|numeric',
-            'siblings' => 'required|numeric|min:1',
-            'siblings_position' => 'required|numeric',
+            'siblings' => 'required|numeric|min:0',
+            'siblings_position' => 'required|numeric|min:0',
 
             'transportation' => ['required', Rule::in([
                 'Jalan Kaki', 'Angkutan umum/bus/pete-pete', 'Mobil/bus antar jemput',
                 'Kereta Api', 'Ojek', 'Andong/bendi/sado/dokar/delman/becak',
-                'Perahu penyeberangan/rakit/getek', 'Kuda', 'Sepeda',
+                'Perahu penyeberangan/rakit/getek', 'Motor', 'Sepeda',
             ])],
             'live' => ['required', Rule::in([
                 'Bersama orang tua', 'Wali', 'Kost', 'Asrama',
