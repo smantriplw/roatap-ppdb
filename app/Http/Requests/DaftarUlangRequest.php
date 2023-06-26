@@ -51,7 +51,7 @@ class DaftarUlangRequest extends FormRequest
             'no_kk' => 'required|regex:/^[0-9]{16}$/',
             'kabupaten' => 'required|max:255',
             'kecamatan' => 'required|max:255',
-            'no_kip' => 'sometimes|numeric',
+            'no_kip' => 'sometimes|regex:/[a-zA-Z0-9]/gi',
             
             'height_body' => 'required|numeric|min:30',
             'width_body' => 'required|numeric',
