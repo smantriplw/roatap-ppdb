@@ -25,7 +25,7 @@ class PesertaLogged
         $now = Carbon::now(config('app.timezone'));
         $user = auth('archive')->user();
 
-        if ($now >= Carbon::createFromFormat('Y-m-d', config('app.ppdb.registerClosed'), config('app.timezone')) || $now >= Carbon::createFromFormat('Y-m-d', config('app.ppdb.closed'), config('app.timezone'))) {
+        if (($now >= Carbon::createFromFormat('Y-m-d', config('app.ppdb.registerClosed'), config('app.timezone')) && isset($user->verificator_id)) || $now >= Carbon::createFromFormat('Y-m-d', config('app.ppdb.closed'), config('app.timezone'))) {
             return response()->json([
                 'error' => 'PPDB registration closed',
             ], 401);
