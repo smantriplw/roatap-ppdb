@@ -17,11 +17,28 @@ class LoginPesertaController extends Controller
 
     public function login(LoginPesertaRequest $request)
     {
+        $now = Carbon::now(config('app.timezone'));
+        $closed = Carbon::createFromFormat('Y-m-d', config('app.ppdb.closed'), config('app.timezone'));
+
+
+        if ($now->gt($closed)) {
+            return response()->json([
+                'error' => 'PPDB registration closed',
+            ], 401);
+        }
+    
         $archive = Archive::where('nisn', $request->input('nisn'));
         if (!$archive->exists()) {
             return response()->json([
                 'error' => 'This NISN doesn\'t exist',
             ]);
+        }
+
+        $preRegister = Carbon::createFromFormat('Y-m-d', config('app.ppdb.preRegistration'), config('app.timezone'));
+        if ($now->gt($preRegister) && $archive->value('verificator_id') === null){
+            return response()->json([
+                'error' => 'Not eligible',
+            ], 401);
         }
 
         if ($this->__todatestr($archive->value('birthday')) !== $request->input('birth')) {
