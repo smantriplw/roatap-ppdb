@@ -21,7 +21,7 @@ class PesertaLogged
                 'error' => 'Unauthorized',
             ], 401);
         }
-
+/*
         $now = Carbon::now(config('app.timezone'));
         $user = auth('archive')->user();
 
@@ -33,7 +33,7 @@ class PesertaLogged
             return response()->json([
                 'error' => 'Not eligible',
             ], 401);
-        }
+        }*/
         
         return $next($request);
     }
