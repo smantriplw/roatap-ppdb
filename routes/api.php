@@ -24,6 +24,7 @@ use App\Http\Controllers\Api\Users\CreateUserController;
 use App\Http\Controllers\Api\Users\DeleteUserController;
 use App\Http\Controllers\Api\Users\EditUserController;
 use App\Http\Controllers\Api\Users\ShowUserController;
+use App\Http\Controllers\Api\Variables\ShowVariablesController;
 use App\Http\Middleware\JwtLogged;
 use App\Http\Middleware\OnlyActiveUser;
 use App\Http\Middleware\OnlySuperAdminUser;
@@ -176,4 +177,13 @@ Route::group([
     Route::get('/', [CommonStatsController::class, 'view'])->middleware([
         JwtLogged::class,
     ]);
+});
+
+// /api/variables
+Route::group([
+    'middleware'    =>  'api',
+    'prefix'        =>  'variables',
+], function() {
+    Route::get('/', [ShowVariablesController::class, 'get_all']);
+    Route::get('/{key}', [ShowVariablesController::class, 'get_key']);
 });
